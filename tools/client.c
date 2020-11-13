@@ -41,7 +41,7 @@ int main()
 	printf("%s\n", recvBuf);
 
 	char sendBuf[100];
-	sprintf_s(sendBuf,100,"Hello,this is client %s","ÍÃ×Ó");
+	sprintf_s(sendBuf,100,"Hello,this is client %s","ï¿½ï¿½ï¿½ï¿½");
 	send(clientSocket, sendBuf, strlen(sendBuf) + 1, 0);
 	closesocket(clientSocket);
 	WSACleanup();

@@ -2,13 +2,16 @@
 CFLAGS=-g -Wall -Isource/include -std=c++17
 GLFWSRC := \
 source/include/glad/glad.c 
-
+ifeq ($(OS),Windows_NT)
+GLFWSRC+=build/win32/glfw3.dll
+GLFWSRC+=build/win32/lua53.dll
+endif
 
 ENGINESRC:= \
 source/engine/luabinding/*.cpp
 INCLUDESRC=$(GLFWSRC)  $(ENGINESRC)
 
-CC=clang++
+CC=g++
 ifeq ($(OS),Windows_NT)
 platform:TARGET:=build/win32/njoy.exe
 else
@@ -31,4 +34,4 @@ njoy:
 .PHONY: clean
 clean:
 	rm ./build/macOS/njoy.out
-	rm njoy.exe
+	rm ./build/macOS/njoy.exe
