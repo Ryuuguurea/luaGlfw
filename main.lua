@@ -30,7 +30,6 @@ mainLoop=function()
     Input._mouseScroll=Vector3:new()
     Window.PollEvents()
 end
-
 while not window:WindowShouldClose() do
     xpcall(mainLoop,onError)
 end

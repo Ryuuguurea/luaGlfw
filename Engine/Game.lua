@@ -28,6 +28,9 @@ function Behavior.Start()
 	a.transform:Rotate(Vector3:new(0,1,0),true)
 	a.transform:Rotate(Vector3:new(0,0,1),true)
 	b.transform.position=Vector3:new(0,1,0)
+
+	tex=Img("./Assets/textures/container2.png")
+	print(tex)
 end
 
 function Behavior.Update(dt)

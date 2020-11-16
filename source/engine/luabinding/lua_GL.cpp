@@ -1,398 +1,250 @@
 #include "lua_GL.h"
 #include <glad/glad.h>
+#include<LuaBridge/LuaBridge.h>
+using namespace std;
 static int
-CreateShader(lua_State *L)
+CreateShader(int type)
 {
-    int type = luaL_checkinteger(L, 1);
-    lua_pushinteger(L, glCreateShader(type));
-    return 1;
+    return glCreateShader(type);
 }
-static int
-ShaderSource(lua_State *L)
+static void
+ShaderSource(int shader,int count,string s)
 {
-    int shader = luaL_checkinteger(L, 1);
-    int count = luaL_checkinteger(L, 2);
-    const char *string = luaL_checkstring(L, 3);
-    glShaderSource(shader, count, &string, NULL);
-    return 0;
+    const char *string = s.c_str();
+    glShaderSource(shader, count,&string, NULL);
 }
-static int
-CompileShader(lua_State *L)
+static void
+CompileShader(int shader)
 {
-    int shader = luaL_checkinteger(L, 1);
     glCompileShader(shader);
-    return 0;
 }
 static int
-GetShaderiv(lua_State *L)
+GetShaderiv(int shader,int type)
 {
-    int shader = luaL_checkinteger(L, 1);
-    int type = luaL_checkinteger(L, 2);
     int state;
     glGetShaderiv(shader, type, &state);
-    lua_pushboolean(L, state);
-    return 1;
+    return state;
 }
-static int
-GetShaderInfoLog(lua_State *L)
+static string
+GetShaderInfoLog(int shader)
 {
-    int shader = luaL_checkinteger(L, 1);
     char log[1024];
     glGetShaderInfoLog(shader, 1024, NULL, log);
-    lua_pushstring(L, log);
-    return 1;
+    return string(log);
 }
 static int
-GetProgramiv(lua_State *L)
+GetProgramiv(int shader,int type)
 {
-    int shader = luaL_checkinteger(L, 1);
-    int type = luaL_checkinteger(L, 2);
     int state;
     glGetProgramiv(shader, type, &state);
-    lua_pushboolean(L, state);
-    return 1;
+    return state;
 }
-static int
-GetProgramInfoLog(lua_State *L)
+static string
+GetProgramInfoLog(int shader)
 {
-    int shader = luaL_checkinteger(L, 1);
     char log[1024];
     glGetProgramInfoLog(shader, 1024, NULL, log);
-    lua_pushstring(L, log);
-    return 1;
+    return string(log);
 }
 static int
-CreateProgram(lua_State *L)
+CreateProgram()
 {
-    lua_pushinteger(L, glCreateProgram());
-    return 1;
+    return glCreateProgram();
 }
-static int
-AttachShader(lua_State *L)
+static void
+AttachShader(int program,int shader)
 {
-    int program = luaL_checkinteger(L, 1);
-    int shader = luaL_checkinteger(L, 2);
     glAttachShader(program, shader);
-    return 0;
 }
-static int
-LinkProgram(lua_State *L)
+static void
+LinkProgram(int program)
 {
-    int program = luaL_checkinteger(L, 1);
     glLinkProgram(program);
-    return 0;
 }
-static int
-DeleteShader(lua_State *L)
+static void
+DeleteShader(int shader)
 {
-    int shader = luaL_checkinteger(L, 1);
     glDeleteShader(shader);
-    return 0;
 }
-static int
-UseProgram(lua_State *L)
+static void
+UseProgram(int shader)
 {
-    int shader = luaL_checkinteger(L, 1);
     glUseProgram(shader);
-    return 0;
 }
 static int
-GetUniformLocation(lua_State *L)
+GetUniformLocation(int program,string name)
 {
-    int program = luaL_checkinteger(L, 1);
-    const char *name = luaL_checkstring(L, 2);
-    lua_pushinteger(L, glGetUniformLocation(program, name));
-    return 1;
+    return glGetUniformLocation(program, name.c_str());
 }
-static int
-Uniform1i(lua_State *L)
+static void
+Uniform1i(int location,int v)
 {
-    int location = luaL_checkinteger(L, 1);
-    int v = luaL_checkinteger(L, 2);
     glUniform1i(location, v);
-    return 0;
 }
-static int
-Uniform1f(lua_State *L)
+static void
+Uniform1f(int location,float v)
 {
-    int location = luaL_checkinteger(L, 1);
-    float v = luaL_checknumber(L, 2);
     glUniform1f(location, v);
-    return 0;
 }
-static int
-Uniform2fv(lua_State *L)
+static void
+Uniform2fv(int location,vector<float> v)
 {
-    int location = luaL_checkinteger(L, 1);
-    int top = lua_gettop(L);
-    float v[top];
-    for (int i = 0; i < top; i++)
-    {
-        v[i] = luaL_checknumber(L, i + 1);
-    }
-    glUniform2fv(location, 1, v);
-    return 0;
+    glUniform2fv(location, 1, &v[0]);
 }
-static int
-Uniform3fv(lua_State *L)
+static void
+Uniform3fv(int location,vector<float>v)
 {
-    int location = luaL_checkinteger(L, 1);
-    int top = lua_gettop(L);
-    float v[top];
-    for (int i = 0; i < top; i++)
-    {
-        v[i] = luaL_checknumber(L, i + 1);
-    }
-    glUniform3fv(location, 1, v);
-    return 0;
+    glUniform3fv(location, 1, &v[0]);
 }
-static int
-Uniform4fv(lua_State *L)
+static void
+Uniform4fv(int location,vector<float>v)
 {
-    int location = luaL_checkinteger(L, 1);
-    int top = lua_gettop(L);
-    float v[top];
-    for (int i = 0; i < top; i++)
-    {
-        v[i] = luaL_checknumber(L, i + 1);
-    }
-    glUniform4fv(location, 1, v);
-    return 0;
+    glUniform4fv(location, 1, &v[0]);
 }
-static int
-UniformMatrix4fv(lua_State *L)
+static void
+UniformMatrix4fv(int location,vector<float>v)
 {
-    int location = luaL_checkinteger(L, 1);
-    float v[luaL_len(L, 2)];
-    lua_pushnil(L);
-    int i = 0;
-    while (lua_next(L, 2))
-    {
-        lua_pushvalue(L, -2);
-        v[i] = luaL_checknumber(L, -2);
-        i++;
-        lua_pop(L, 2);
-    }
-    glUniformMatrix4fv(location, 1, GL_FALSE, v);
-    return 0;
+    glUniformMatrix4fv(location, 1, GL_FALSE, &v[0]);
 }
 
 static int
-GenVertexArrays(lua_State *L)
+GenVertexArrays()
 {
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
-    lua_pushinteger(L, VAO);
-    return 1;
+    return VAO;
 }
 static int
-GenBuffers(lua_State *L)
+GenBuffers()
 {
     GLuint VBO;
     glGenBuffers(1, &VBO);
-    lua_pushinteger(L, VBO);
-    return 1;
+    return VBO;
 }
-static int
-BindVertexArray(lua_State *L)
+static void
+BindVertexArray(unsigned int VAO)
 {
-    unsigned int VAO = luaL_checkinteger(L, 1);
+
     glBindVertexArray(VAO);
-    return 0;
+
 }
-static int
-Viewport(lua_State *L)
+static void
+Viewport(int x,int y,int z,int w)
 {
-    int x=luaL_checkinteger(L,1);
-    int y=luaL_checkinteger(L,2);
-    int z=luaL_checkinteger(L,3);
-    int w=luaL_checkinteger(L,4);
+
     glViewport(x,y,z,w);
-    return 0;
+
 }
 
-static int
-BindBuffer(lua_State *L)
+static void
+BindBuffer(int target,unsigned int buffer)
 {
-    int target = luaL_checkinteger(L, 1);
-    unsigned int buffer = luaL_checkinteger(L, 2);
     glBindBuffer(target, buffer);
-    return 0;
 }
-static int
-BufferData(lua_State *L)
+static void
+BufferData(int target,vector<float> data,int usage)
 {
-    int target = luaL_checkinteger(L, 1);
-    switch (target)
-    {
-    case GL_ARRAY_BUFFER:
-    {
-        float data[luaL_len(L, 2)];
-        lua_pushnil(L);
-        int i = 0;
-        while (lua_next(L, 2))
-        {
-            lua_pushvalue(L, -2);
-            data[i] = luaL_checknumber(L, -2);
-            i++;
-            lua_pop(L, 2);
-        }
-        int usage = luaL_checkinteger(L, 3);
-        glBufferData(target, sizeof(data), data, usage);
-    }
-    break;
-    case GL_ELEMENT_ARRAY_BUFFER:
-    {
-        unsigned int data[luaL_len(L, 2)];
-        lua_pushnil(L);
-        int i = 0;
-        while (lua_next(L, 2))
-        {
-            lua_pushvalue(L, -2);
-            data[i] = luaL_checkinteger(L, -2);
-            i++;
-            lua_pop(L, 2);
-        }
-        int usage = luaL_checkinteger(L, 3);
-        glBufferData(target, sizeof(data), data, usage);
-    }
-    break;
-    default:
-        break;
-    }
-    return 0;
+    glBufferData(target, sizeof(float)*data.size(), &data[0], usage);
 }
-static int
-EnableVertexAttribArray(lua_State *L)
+static void
+EnableVertexAttribArray(int index)
 {
-    int index = luaL_checkinteger(L, 1);
     glEnableVertexAttribArray(index);
-    return 0;
 }
-static int
-VertexAttribPointer(lua_State *L)
+static void
+VertexAttribPointer(int index,int size)
 {
-    int index = luaL_checkinteger(L, 1);
-    int size = luaL_checkinteger(L, 2);
     glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, size * sizeof(float), (void *)0);
-    return 0;
 }
 static int
-GenTextures(lua_State *L)
+GenTextures(void)
 {
     unsigned int id;
     glGenTextures(1, &id);
-    lua_pushinteger(L, id);
-    return 1;
+    return id;
 }
-static int
-TexImage2D(lua_State *L)
+static void
+TexImage2D(GLenum target,GLint level,GLint format,GLsizei width,GLsizei height,GLint board,GLenum type,vector<unsigned char> data)
 {
-    GLenum target = luaL_checkinteger(L, 1);
-    GLint level = luaL_checkinteger(L, 2);
-    GLint format = luaL_checkinteger(L, 3);
-    GLsizei width = luaL_checkinteger(L, 4);
-    GLsizei height = luaL_checkinteger(L, 5);
-    GLint board = luaL_checkinteger(L, 6);
-    GLenum type = luaL_checkinteger(L, 7);
-    unsigned char *data;
-    glTexImage2D(target, level, format, width, height, board, format, type, data);
+    glTexImage2D(target, level, format, width, height, board, format, type, &data[0]);
 }
-static int
-ActiveTexture(lua_State *L)
+static void
+ActiveTexture(int texture)
 {
-    int texture = luaL_checkinteger(L, 1);
     glActiveTexture(texture);
-    return 0;
 }
-static int
-BindTexture(lua_State *L)
+static void
+BindTexture(int target ,int texture)
 {
-    int target = luaL_checkinteger(L, 1);
-    int texture = luaL_checkinteger(L, 2);
     glBindTexture(target, texture);
-    return 0;
 }
-static int
-DrawElements(lua_State *L)
+static void
+DrawElements(int mode,int count)
 {
-    int mode = luaL_checkinteger(L, 1);
-    int count = luaL_checkinteger(L, 2);
     glDrawElements(mode, count, GL_UNSIGNED_INT, 0);
-    return 0;
-}
-static int
-ClearColor(lua_State *L)
-{
-    float r = luaL_checknumber(L, 1);
-    float g = luaL_checknumber(L, 2);
-    float b = luaL_checknumber(L, 3);
-    float a = luaL_checknumber(L, 4);
-    glClearColor(r, g, b, a);
-    return 0;
-}
-static int
-Clear(lua_State *L)
-{
-    long bit = luaL_checkinteger(L, 1);
-    glClear(bit);
-    return 0;
-}
-static int
-DepthFunc(lua_State *L)
-{
-    int func = luaL_checkinteger(L, 1);
-    glDepthFunc(func);
-    return 0;
-}
-static int
-Enable(lua_State *L)
-{
-    int cap=luaL_checkinteger(L,1);
-    glEnable(cap);
-    return 0;
-}
-int Binding_GL(lua_State *L)
-{
-    luaL_Reg l[] = {
-        {"Viewport",Viewport},
 
-        
-        {"CreateShader", CreateShader},
-        {"ShaderSource", ShaderSource},
-        {"CompileShader", CompileShader},
-        {"GetShaderiv", GetShaderiv},
-        {"GetShaderInfoLog", GetShaderInfoLog},
-        {"GetProgramiv", GetProgramiv},
-        {"GetProgramInfoLog", GetProgramInfoLog},
-        {"CreateProgram", CreateProgram},
-        {"AttachShader", AttachShader},
-        {"LinkProgram", LinkProgram},
-        {"DeleteShader", DeleteShader},
-        {"UseProgram", UseProgram},
-        {"GetUniformLocation", GetUniformLocation},
-        {"Uniform1i", Uniform1i},
-        {"Uniform1f", Uniform1f},
-        {"Uniform2fv", Uniform2fv},
-        {"Uniform3fv", Uniform3fv},
-        {"Uniform4fv", Uniform4fv},
-        {"UniformMatrix4fv", UniformMatrix4fv},
-        {"UseProgram", UseProgram},
-        {"GenVertexArrays", GenVertexArrays},
-        {"GenBuffers", GenBuffers},
-        {"BindVertexArray", BindVertexArray},
-        {"BindBuffer", BindBuffer},
-        {"BufferData", BufferData},
-        {"EnableVertexAttribArray", EnableVertexAttribArray},
-        {"VertexAttribPointer", VertexAttribPointer},
-        {"ActiveTexture", ActiveTexture},
-        {"BindTexture", BindTexture},
-        {"DrawElements", DrawElements},
-        {"ClearColor", ClearColor},
-        {"Clear", Clear},
-        {"DepthFunc", DepthFunc},
-        {"Enable",Enable},
-        {NULL, NULL}};
-    ScriptUtil::Register_Class("GL", NULL, NULL, NULL, l);
-    return 1;
+}
+static void
+ClearColor(float r,float g,float b,float a)
+{
+
+    glClearColor(r, g, b, a);
+
+}
+static void
+Clear(long bit)
+{
+    glClear(bit);
+}
+static void
+DepthFunc(int func)
+{
+    glDepthFunc(func);
+}
+static void
+Enable(int cap)
+{
+    glEnable(cap);
+}
+void Binding_GL(lua_State *L)
+{
+    luabridge::getGlobalNamespace(L).beginNamespace("GL")
+    .addFunction("Viewport",Viewport)
+    .addFunction("CreateShader",CreateShader)
+    .addFunction("ShaderSource",ShaderSource)
+    .addFunction("CompileShader",CompileShader)
+    .addFunction("GetShaderiv",GetShaderiv)
+    .addFunction("GetShaderInfoLog",GetShaderInfoLog)
+    .addFunction("GetProgramiv",GetProgramiv)
+    .addFunction("GetProgramInfoLog",GetProgramInfoLog)
+    .addFunction("CreateProgram",CreateProgram)
+    .addFunction("AttachShader",AttachShader)
+    .addFunction("LinkProgram",LinkProgram)
+    .addFunction("DeleteShader",DeleteShader)
+    .addFunction("UseProgram",UseProgram)
+    .addFunction("GetUniformLocation",GetUniformLocation)
+    .addFunction("Uniform1i",Uniform1i)
+    .addFunction("Uniform1f",Uniform1f)
+    .addFunction("Uniform2fv",Uniform2fv)
+    .addFunction("Uniform3fv",Uniform3fv)
+    .addFunction("Uniform4fv",Uniform4fv)
+    .addFunction("UniformMatrix4fv",UniformMatrix4fv)
+    .addFunction("UseProgram",UseProgram)
+    .addFunction("GenVertexArrays",GenVertexArrays)
+    .addFunction("GenBuffers",GenBuffers)
+    .addFunction("BindVertexArray",BindVertexArray)
+    .addFunction("BindBuffer",BindBuffer)
+    .addFunction("BufferData",BufferData)
+    .addFunction("EnableVertexAttribArray",EnableVertexAttribArray)
+    .addFunction("VertexAttribPointer",VertexAttribPointer)
+    .addFunction("ActiveTexture",ActiveTexture)
+    .addFunction("BindTexture",BindTexture)
+    .addFunction("DrawElements",DrawElements)
+    .addFunction("ClearColor",ClearColor)
+    .addFunction("Clear",Clear)
+    .addFunction("DepthFunc",DepthFunc)
+    .addFunction("Enable",Enable)
+    .addFunction("GenTextures",GenTextures)
+    .addFunction("TexImage2D",TexImage2D)
+    .endNamespace();
 }
