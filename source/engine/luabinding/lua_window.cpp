@@ -3,6 +3,25 @@
 #include<LuaBridge/LuaBridge.h>
 using namespace luabridge;
 using namespace std;
+
+void OnCursorPosCallback(GLFWwindow*w,double x,double y){
+	Lua_Window* self=(Lua_Window*)glfwGetWindowUserPointer(w);
+	self->cursorPosCallback(x,y);
+}
+void OnFrameSizeCallback(GLFWwindow*w,int width,int height){
+	Lua_Window* self=(Lua_Window*)glfwGetWindowUserPointer(w);
+	self->frameSizeCallback(width,height);
+}
+void OnScrollCallback(GLFWwindow*w,double x,double y){
+	Lua_Window* self=(Lua_Window*)glfwGetWindowUserPointer(w);
+	self->scrollCallBack(x,y);
+}
+void OnMouseButtonCallback(GLFWwindow*w,int a,int b,int c){
+	Lua_Window* self=(Lua_Window*)glfwGetWindowUserPointer(w);
+	self->mouseButtonCallback(a,b,c);
+}
+
+
 Lua_Window::Lua_Window(string name,int width,int height){
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -35,30 +54,29 @@ Lua_Window::~Lua_Window(){
 
 }
 
-void Lua_Window::SetCursorPosCallback(luabridge::LuaRef*){
-
+void Lua_Window::SetCursorPosCallback(luabridge::LuaRef r){
+	cursorPosCallback=[&r](double x,double y){
+		r(x,y);
+	};
 }
-void Lua_Window::SetFrameSizeCallback(luabridge::LuaRef*){
-
+void Lua_Window::SetFrameSizeCallback(luabridge::LuaRef r){
+	// frameSizeCallback=r;
+	frameSizeCallback= [&r](int w,int h){
+		r(w,h);
+	};
 }
-void Lua_Window::SetScrollCallback(luabridge::LuaRef*){
-
+void Lua_Window::SetScrollCallback(luabridge::LuaRef r){
+	scrollCallBack=[&r](double x,double y){
+		r(x,y);
+	};
 }
-void Lua_Window::SetMouseButtonCallback(luabridge::LuaRef*){
-
+void Lua_Window::SetMouseButtonCallback(luabridge::LuaRef r){
+	mouseButtonCallback=[&r](int a,int b,int c){
+		r(a,b,c);
+	};
 }
 
-void Lua_Window::OnCursorPosCallback(GLFWwindow*w,double x,double y){
-}
-void Lua_Window::OnFrameSizeCallback(GLFWwindow*w,int width,int h){
 
-}
-void Lua_Window::OnScrollCallback(GLFWwindow*w,double x,double y){
-
-}
-void Lua_Window::OnMouseButtonCallback(GLFWwindow*window,int a,int b,int c){
-
-}
 bool
 Lua_Window::WindowShouldClose(){
     return glfwWindowShouldClose(window);
@@ -78,9 +96,7 @@ int Lua_Window::GetKey(int key){
 	return glfwGetKey(window,key);
 }
 int Lua_Window::Bind(lua_State *L){
-	std::function<int(Lua_Window* object,int value,lua_State*L)> func=[](Lua_Window* object,int value,lua_State*L)->int{
-		return 0;
-	};
+
 
 	luabridge::getGlobalNamespace(L)
 	.beginClass<Lua_Window>("Window")
@@ -90,7 +106,10 @@ int Lua_Window::Bind(lua_State *L){
 	.addFunction("PollEvents",&Lua_Window::PollEvents)
 	.addFunction("GetTime",&Lua_Window::GetTime)
 	.addFunction("SwapBuffers",&Lua_Window::SwapBuffers)
-	.addFunction("SetFramebufferSizeCallback",move(func))
+	.addFunction("SetFramebufferSizeCallback",&Lua_Window::SetFrameSizeCallback)
+	.addFunction("SetCursorPosCallback",&Lua_Window::SetCursorPosCallback)
+	.addFunction("SetScrollCallback",&Lua_Window::SetScrollCallback)
+	.addFunction("SetMouseButtonCallback",&Lua_Window::SetMouseButtonCallback)
 	.endClass();
 	return 1;
 }

@@ -1,4 +1,3 @@
-require"Native"
 Material=class({
     ctor=function(self,v)
         local vertexCode=v.Vert

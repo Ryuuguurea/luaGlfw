@@ -1,5 +1,4 @@
 
-require"Native"
 Scene={
     current=nil
 }

@@ -1,11 +1,5 @@
-require"Native"
-onError=function(...)
-    print(...)
-    print(debug.traceback())
-end
-
 package.path=package.path ..";Engine/?.lua"
-local window=Window:new("WINDOW",600,400)
+local window=Window("WINDOW",600,400)
 local game= require"Engine/Game"
 game.Resize(600,400)
 window:SetFramebufferSizeCallback(function(...)
@@ -22,14 +16,14 @@ window:SetMouseButtonCallback(function(a,b,c)
     Input._mouseButton[a]=b
 end)
 Input._window=window
-xpcall(game.Start,onError)
+game.Start()
 mainLoop=function()
-    Time:Update(Window.GetTime())
+    Time:Update(window:GetTime())
     game.Update(Time.deltaTime)
     window:SwapBuffers()
     Input._mouseScroll=Vector3:new()
-    Window.PollEvents()
+    window:PollEvents()
 end
 while not window:WindowShouldClose() do
-    xpcall(mainLoop,onError)
+    mainLoop()
 end

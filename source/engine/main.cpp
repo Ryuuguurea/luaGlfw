@@ -27,7 +27,15 @@ int main(int argc, char *argv[])
         luaL_openlibs(L);
         lua_pushcfunction(L, &traceback);
         bind(L);
-        luaL_dofile(L,argv[1]);
+        if(luaL_loadfile(L,argv[1])!=0){
+            std::cout<<lua_tostring(L, -1);
+            system("pause");
+        }
+        if (lua_pcall(L, 0, 0, -2) != 0)
+        {
+            std::cout<<lua_tostring(L, -1);
+            system("pause");
+        }
     }
     return 0;
 }
