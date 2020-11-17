@@ -2,21 +2,24 @@
 #define LUAIMG_H
 #include "lua/lua.hpp"
 #include <string>
+#include<memory>
+#include<LuaBridge/RefCountedObject.h>
+#include<LuaBridge/RefCountedPtr.h>
+struct ImageData:luabridge::RefCountedObject{
+    unsigned char*data;
+    int width;
+    int height;
+    int nrChannels;
+    std::string path;
+    ~ImageData();
+};
 class Lua_Img
 {
 private:
 
 public:
-    int width;
-    int height;
-    int nrChannels;
-    unsigned char*data;
-    std::string path;
     static void Bind(lua_State *L);
-    ~Lua_Img();
-    Lua_Img(std::string path);
-    Lua_Img(const Lua_Img&)=delete;
-    Lua_Img&operator =(const Lua_Img&)=delete;
+    static luabridge::RefCountedObjectPtr<ImageData> Load(std::string);
 };
 
 #endif

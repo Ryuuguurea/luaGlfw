@@ -1,6 +1,8 @@
 #include "lua_GL.h"
 #include <glad/glad.h>
 #include<LuaBridge/LuaBridge.h>
+#include<LuaBridge/Vector.h>
+#include"lua_img.h"
 using namespace std;
 static int
 CreateShader(int type)
@@ -124,16 +126,12 @@ GenBuffers()
 static void
 BindVertexArray(unsigned int VAO)
 {
-
     glBindVertexArray(VAO);
-
 }
 static void
 Viewport(int x,int y,int z,int w)
 {
-
     glViewport(x,y,z,w);
-
 }
 
 static void
@@ -142,9 +140,14 @@ BindBuffer(int target,unsigned int buffer)
     glBindBuffer(target, buffer);
 }
 static void
-BufferData(int target,vector<float> data,int usage)
+BufferDataf(int target,const std::vector<float>& data,int usage)
 {
     glBufferData(target, sizeof(float)*data.size(), &data[0], usage);
+}
+static void
+BufferDatai(int target,const std::vector<int>& data,int usage)
+{
+    glBufferData(target, sizeof(int)*data.size(), &data[0], usage);
 }
 static void
 EnableVertexAttribArray(int index)
@@ -154,7 +157,7 @@ EnableVertexAttribArray(int index)
 static void
 VertexAttribPointer(int index,int size)
 {
-    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, size * sizeof(float), (void *)0);
+    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, 0, (void *)0);
 }
 static int
 GenTextures(void)
@@ -164,9 +167,9 @@ GenTextures(void)
     return id;
 }
 static void
-TexImage2D(GLenum target,GLint level,GLint format,GLsizei width,GLsizei height,GLint board,GLenum type,vector<unsigned char> data)
+TexImage2D(GLenum target,GLint level,GLint format,GLsizei width,GLsizei height,GLint board,GLenum type,ImageData data)
 {
-    glTexImage2D(target, level, format, width, height, board, format, type, &data[0]);
+    glTexImage2D(target, level, format, width, height, board, format, type, data.data);
 }
 static void
 ActiveTexture(int texture)
@@ -182,14 +185,11 @@ static void
 DrawElements(int mode,int count)
 {
     glDrawElements(mode, count, GL_UNSIGNED_INT, 0);
-
 }
 static void
 ClearColor(float r,float g,float b,float a)
 {
-
     glClearColor(r, g, b, a);
-
 }
 static void
 Clear(long bit)
@@ -234,7 +234,8 @@ void Binding_GL(lua_State *L)
     .addFunction("GenBuffers",GenBuffers)
     .addFunction("BindVertexArray",BindVertexArray)
     .addFunction("BindBuffer",BindBuffer)
-    .addFunction("BufferData",BufferData)
+    .addFunction("BufferDatai",BufferDatai)
+    .addFunction("BufferDataf",BufferDataf)
     .addFunction("EnableVertexAttribArray",EnableVertexAttribArray)
     .addFunction("VertexAttribPointer",VertexAttribPointer)
     .addFunction("ActiveTexture",ActiveTexture)

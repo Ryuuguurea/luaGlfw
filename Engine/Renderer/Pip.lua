@@ -1,3 +1,0 @@
-Pip=class({
-    extends=LinePip
-})

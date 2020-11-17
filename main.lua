@@ -2,10 +2,10 @@ package.path=package.path ..";Engine/?.lua"
 local window=Window("WINDOW",600,400)
 local game= require"Engine/Game"
 game.Resize(600,400)
+
 window:SetFramebufferSizeCallback(function(...)
     game.Resize(...)
 end)
- 
 window:SetCursorPosCallback(function(x,y)
     Input._mousePosition=Vector3:new(x,y)
 end)
@@ -15,6 +15,7 @@ end)
 window:SetMouseButtonCallback(function(a,b,c)
     Input._mouseButton[a]=b
 end)
+
 Input._window=window
 game.Start()
 mainLoop=function()

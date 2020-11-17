@@ -20,14 +20,14 @@ class Lua_Window{
         std::function<void(int,int,int)> mouseButtonCallback;
 
     private:
-        void SetFrameSizeCallback(luabridge::LuaRef);
-        void SetCursorPosCallback(luabridge::LuaRef);
-        void SetScrollCallback(luabridge::LuaRef);
-        void SetMouseButtonCallback(luabridge::LuaRef);
+        void SetFrameSizeCallback(const luabridge::LuaRef&);
+        void SetCursorPosCallback(const luabridge::LuaRef&);
+        void SetScrollCallback(const luabridge::LuaRef&);
+        void SetMouseButtonCallback(const luabridge::LuaRef&);
         bool WindowShouldClose();
         int GetKey(int);
         void PollEvents();
-        int GetTime();
+        double GetTime();
         void SwapBuffers();
 };
 #endif
