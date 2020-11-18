@@ -1,10 +1,8 @@
 package.path=package.path ..";Engine/?.lua"
+require"Engine/Game"
 local window=Window("WINDOW",600,400)
-local game= require"Engine/Game"
-game.Resize(600,400)
-
-window:SetFramebufferSizeCallback(function(...)
-    game.Resize(...)
+window:SetFramebufferSizeCallback(function(w,h)
+	GL.Viewport(0,0,w,h)
 end)
 window:SetCursorPosCallback(function(x,y)
     Input._mousePosition=Vector3:new(x,y)
@@ -17,10 +15,10 @@ window:SetMouseButtonCallback(function(a,b,c)
 end)
 
 Input._window=window
-game.Start()
+Game:Initialize()
 mainLoop=function()
     Time:Update(window:GetTime())
-    game.Update(Time.deltaTime)
+    Game.Tick(Time.deltaTime)
     window:SwapBuffers()
     Input._mouseScroll=Vector3:new()
     window:PollEvents()
@@ -28,3 +26,4 @@ end
 while not window:WindowShouldClose() do
     mainLoop()
 end
+Game:Finalize()

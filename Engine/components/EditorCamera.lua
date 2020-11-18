@@ -9,7 +9,7 @@ EditorCamera=class{
         self._speed=1
     end,
     property={
-        Update=function(self)
+        Tick=function(self,d)
             local delta=Vector3:new(Input.mousePosition.x-self._lastMouse.x,Input.mousePosition.y-self._lastMouse.y,0)
             self._lastMouse=Input.mousePosition
             if Input:GetMouseButton(1) then

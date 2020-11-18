@@ -109,7 +109,6 @@ Object=class({
 })
 
 require"LinearMath"
-require"Scene"
 require"Actor"
 require"Component"
 require"Transform"
@@ -122,3 +121,5 @@ require"Mesh"
 require"Time"
 require"Input"
 require"components/EditorCamera"
+require"manager/RenderManager"
+require"manager/SceneManager"

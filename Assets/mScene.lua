@@ -1,63 +1,53 @@
 return {
     {
-        ["name"]="DirectionLight",
-        ["uuid"]="0",
-        ["parent"]=nil,
-        ["components"]=
+        name="root",
+        uuid=0,
+        components=
         {
-            ["Light"]=
+            Light=
             {
 
             },
-            ["Transform"]={
-                ["position"]={0,0,0},
-                ["rotation"]={0,0,0,0},
-                ["scale"]={1,1,1},
+            Transform={
+                position={0,0,0},
+                rotation={0,0,0,0},
+                scale={1,1,1},
             }
         }
     },
     {
-        ["name"]="Main Camera",
-        ["uuid"]="1",
-        ["parent"]=nil,
-        ["components"]={
-            ["Camera"]=
+        name="Main Camera",
+        uuid=1,
+        parent=0,
+        components={
+            Camera=
             {
                 
             },
-            ["Transform"]={
-                ["position"]={0,0,-10},
-                ["rotation"]={0,0,0,0},
-                ["scale"]={1,1,1},
+            Transform={
+                position={0,0,-10},
+                rotation={0,0,0,0},
+                scale={1,1,1},
             }
         }
     },
     {
-        ["name"]="Cube",
-        ["uuid"]="2",
-        ["parent"]=nil,
-        ["components"]={
-            ["Renderer"]=
+        name="Cube",
+        uuid=2,
+        parent=0,
+        components={
+            Renderer=
             {
-                ["Material"]="defaultMaterial"
+                Material="defaultMaterial"
             },
-            ["MeshFilter"]=
+            MeshFilter=
             {
-                ["mesh"]={
-                    ["vertices"]={
-                        -0.5,-0.5,-0.5,
-                        0.5,-0.5,-0.5,
-                        0.5,0.5,-0.5,
-                    },
-                    ["trangles"]={
-                        1,2,3
-                    }
-                }
+                mesh={}
             },
-            ["Transform"]={
-                ["position"]={0,0,0},
-                ["rotation"]={0,0,0,0},
-                ["scale"]={1,1,1},
+            Transform={
+                position={0,0,0},
+                rotation={0,0,0,0},
+                scale={1,1,1},
             }
         }
     }

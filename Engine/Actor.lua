@@ -1,8 +1,15 @@
+GUUID=0
 Actor=class({
-    ctor=function(self)
+    ctor=function(self,data)
         self._components={}
         self:AddComponent(Transform)
-        table.insert(Scene.current.nodes,self)
+        if data~=nil then
+            self.uuid=data.uuid
+        else
+            self.uuid=GUUID+1
+        end
+        GUUID=math.max(self.uuid,GUUID)
+        SceneManager:Add(self)
     end,
     property={
         transform={
@@ -21,10 +28,10 @@ Actor=class({
         RemoveComponent=function(self,type)
             self._components[type]=nil
         end,
-        Update=function(self)
+        Tick=function(self,delta)
             for k,v in pairs(self._components)do
-                if type(v.Update)=='function'then
-                    v:Update()
+                if type(v.Tick)=='function'then
+                    v:Tick()
                 end
             end
         end           
