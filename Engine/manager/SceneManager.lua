@@ -11,6 +11,7 @@ SceneManager=class({
                     self.root=v
                 end
             end
+            self.dirty=true
         end,
         Tick=function(self,delta)
             for i,v in pairs(self.nodes) do
@@ -21,6 +22,7 @@ SceneManager=class({
         end,
         Add=function(self,actor)
             self.nodes[actor.uuid]=actor
+            self.dirty=true
         end
     }
 })

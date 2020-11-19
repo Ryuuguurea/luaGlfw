@@ -15,29 +15,20 @@ Mesh=class({
         end,
         SetUp=function(self)
             self.VAO= GL.GenVertexArrays()
-            -- self.VBO=GL.GenBuffers()
-            -- self.EBO=GL.GenBuffers()
             GL.BindVertexArray(self.VAO)
-            -- GL.BindBuffer(0x8892,self.VBO)
-            -- GL.BufferDataf(0x8892,self.vertices.position,0x88e4)
-            -- GL.BindBuffer(0x8893,self.EBO)
-            -- GL.BufferDatai(0x8893,self.indices,0x88e4)
-            -- GL.VertexAttribPointer(0,3)
-            -- GL.EnableVertexAttribArray(0)
-            -- GL.BindVertexArray(0)
             attrib=0
             for i,v in pairs(self.vertices) do
                 buffer_id= GL.GenBuffers()
-                GL.BindBuffer(0x8892,buffer_id)
-                GL.BufferDataf(0x8892,v.data,0x88e4)
+                GL.BindBuffer(GL.ARRAY_BUFFER,buffer_id)
+                GL.BufferDataf(GL.ARRAY_BUFFER,v.data,GL.STATIC_DRAW)
                 GL.EnableVertexAttribArray(attrib)
                 GL.VertexAttribPointer(attrib,v.format)
                 table.insert(self.buffers,buffer_id)
                 attrib=attrib+1
             end
             index_buffer=GL.GenBuffers()
-            GL.BindBuffer(0x8893,index_buffer)
-            GL.BufferDatai(0x8893,self.indices,0x88e4)
+            GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,index_buffer)
+            GL.BufferDatai(GL.ELEMENT_ARRAY_BUFFER,self.indices,GL.STATIC_DRAW)
         end
     }
 })

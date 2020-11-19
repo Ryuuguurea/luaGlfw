@@ -288,7 +288,10 @@ Mat4x4=class({
                     mat[3] * vec[1] + mat[7] * vec[2] + mat[11] * vec[3] + mat[15] * 1
                 )
             end
-        end
+        end,
+        -- __tostring=function(self)
+        --     return #self.data
+        -- end
     }
 })
 

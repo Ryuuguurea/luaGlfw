@@ -26,7 +26,6 @@ Camera=class({
                 local height=2*top
                 local width=self.aspect*height
                 local left=-0.5*width
-
                 return Mat4x4.Perspective( left, left + width, top, top - height, near, self.far )
             end
         }

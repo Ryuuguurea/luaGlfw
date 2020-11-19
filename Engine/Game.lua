@@ -2,16 +2,19 @@ require"Engine"
 Game=class({
 	static={
 		Initialize=function(self)
+			AssetManager:Initialize()
 			SceneManager:Initialize(require("./Assets/mScene"))
-			RenderManager:Initialize()
+			GraphicManager:Initialize()
 		end,
 		Tick=function(self,delta)
+			AssetManager:Tick(delta)
 			SceneManager:Tick(delta)
-			RenderManager:Tick(delta)
+			GraphicManager:Tick(delta)
 		end,
 		Finalize=function(self)
+			AssetManager:Finalize()
 			SceneManager:Finalize()
-			RenderManager:Finalize()
+			GraphicManager:Finalize()
 		end
 	}
 })

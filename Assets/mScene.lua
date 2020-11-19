@@ -4,10 +4,6 @@ return {
         uuid=0,
         components=
         {
-            Light=
-            {
-
-            },
             Transform={
                 position={0,0,0},
                 rotation={0,0,0,0},
@@ -38,11 +34,7 @@ return {
         components={
             Renderer=
             {
-                Material="defaultMaterial"
-            },
-            MeshFilter=
-            {
-                mesh={}
+                material="./Assets/materials/default"
             },
             Transform={
                 position={0,0,0},

@@ -1,6 +1,8 @@
 return 
 {
-    ["Shader"]="shader1",
-    ["color"]=0,0,1,1,
-    ["mainTex"]="texture1"
+    shader="./Assets/shaders/default",
+    uniform={
+        color={0,0,1,1},
+        mainTex="./Assets/textures/default.png"
+    }
 }

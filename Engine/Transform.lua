@@ -1,8 +1,14 @@
 Transform=class({
-    ctor=function(self)
-        self.position=Vector3:new(0,0,0)
-        self.localRotation=Quaternion:new()
-        self.scale=Vector3:new(1,1,1)
+    ctor=function(self,actor,data)
+        if data~=nil then
+            self.position=Vector3:new(data.position[1],data.position[2],data.position[3])
+            self.localRotation=Quaternion:Euler(Vector3:new(data.rotation[1],data.rotation[2],data.rotation[3]))
+            self.scale=Vector3:new(data.scale[1],data.scale[2],data.scale[3])
+        else
+            self.position=Vector3:new(0,0,0)
+            self.localRotation=Quaternion:new()
+            self.scale=Vector3:new(1,1,1)
+        end
         self._parent=nil
         self.children={}
     end,

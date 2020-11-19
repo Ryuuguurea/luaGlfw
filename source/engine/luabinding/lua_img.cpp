@@ -26,5 +26,7 @@ void Lua_Img::Bind(lua_State *L){
     .addStaticFunction("Load",Load)
     .endClass();
     luabridge::getGlobalNamespace(L).beginClass<ImageData>("ImageData")
+    .addProperty("width",&ImageData::width)
+    .addProperty("height",&ImageData::height)
     .endClass();
 }

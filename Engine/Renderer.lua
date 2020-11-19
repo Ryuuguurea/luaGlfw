@@ -1,7 +1,8 @@
 
 Renderer=class({
-    ctor=function(self,actor)
+    ctor=function(self,actor,data)
         self._materials={}
+        self._mesh=nil
         self.actor=actor
         self.drawMode={
             ["wireframe"]=1,
@@ -9,24 +10,10 @@ Renderer=class({
             ["TriangleStripDrawMode"]=5,
             ["TriangleFanDrawMode"]=6
         }
+        self.material=AssetManager:Load(data.material,"material")
     end,
     property={
-        Render=function(self)
-            for k,v in pairs(self._materials)do
-                v:UseShader()
-                v:SetMat4("modelView",Camera.current.viewMat4*self.actor.transform.modelMat4)
-                v:SetMat4("projection",Camera.current.projectionMat4)
-                v:SetFloat("time",Time.time)
-                if v.wireframe then
-                    self.actor:GetComponent(MeshFilter):Draw(self.drawMode["wireframe"])
-                else
-                    self.actor:GetComponent(MeshFilter):Draw(self.drawMode["TriangleStripDrawMode"])
-                end
-            end
-        end,
-        AddMaterial=function(self,material)
-            table.insert(self._materials,material)
-        end,
+
         Draw=function(self)
 
         end

@@ -2,9 +2,11 @@ GUUID=0
 Actor=class({
     ctor=function(self,data)
         self._components={}
-        self:AddComponent(Transform)
         if data~=nil then
             self.uuid=data.uuid
+            for i,v in pairs(data.components)do
+                self:AddComponent(_G[i],v)
+            end
         else
             self.uuid=GUUID+1
         end
@@ -17,8 +19,8 @@ Actor=class({
                 return self:GetComponent(Transform)
             end
         },
-        AddComponent=function(self,type)
-            local component=type:new(self)
+        AddComponent=function(self,type,data)
+            local component=type:new(self,data)
             self._components[type]=component
             return component
         end,

@@ -33,5 +33,6 @@ return{
     properties={
         mainTex="./Assets/textures/default.png",
         color={1,1,1,1}
-    }
+    },
+    pass="geometry"
 }

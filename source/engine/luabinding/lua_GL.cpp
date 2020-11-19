@@ -167,9 +167,9 @@ GenTextures(void)
     return id;
 }
 static void
-TexImage2D(GLenum target,GLint level,GLint format,GLsizei width,GLsizei height,GLint board,GLenum type,ImageData data)
+TexImage2D(GLenum target,GLint level,GLint format,GLsizei width,GLsizei height,GLint board,GLenum type,luabridge::RefCountedObjectPtr<ImageData> data)
 {
-    glTexImage2D(target, level, format, width, height, board, format, type, data.data);
+    glTexImage2D(target, level, format, width, height, board, format, type, data->data);
 }
 static void
 ActiveTexture(int texture)
@@ -206,6 +206,19 @@ Enable(int cap)
 {
     glEnable(cap);
 }
+int DEPTH_TEST=GL_DEPTH_TEST;
+int VERTEX_SHADER=GL_VERTEX_SHADER;
+int FRAGMENT_SHADER=GL_FRAGMENT_SHADER;
+int COMPILE_STATUS=GL_COMPILE_STATUS;
+int LINK_STATUS=GL_LINK_STATUS;
+int ARRAY_BUFFER=GL_ARRAY_BUFFER;
+int ELEMENT_ARRAY_BUFFER=GL_ELEMENT_ARRAY_BUFFER;
+int STATIC_DRAW=GL_STATIC_DRAW;
+int COLOR_BUFFER_BIT=GL_COLOR_BUFFER_BIT;
+int DEPTH_BUFFER_BIT=GL_DEPTH_BUFFER_BIT;
+int TEXTURE_2D=GL_TEXTURE_2D;
+int RGBA=GL_RGBA;
+int UNSIGNED_BYTE=GL_UNSIGNED_BYTE;
 void Binding_GL(lua_State *L)
 {
     luabridge::getGlobalNamespace(L).beginNamespace("GL")
@@ -247,5 +260,18 @@ void Binding_GL(lua_State *L)
     .addFunction("Enable",Enable)
     .addFunction("GenTextures",GenTextures)
     .addFunction("TexImage2D",TexImage2D)
+    .addVariable("DEPTH_TEST",&DEPTH_TEST,false)
+    .addVariable("VERTEX_SHADER",&VERTEX_SHADER,false)
+    .addVariable("FRAGMENT_SHADER",&FRAGMENT_SHADER,false)
+    .addVariable("COMPILE_STATUS",&COMPILE_STATUS,false)
+    .addVariable("LINK_STATUS",&LINK_STATUS,false)
+    .addVariable("ARRAY_BUFFER",&ARRAY_BUFFER,false)
+    .addVariable("ELEMENT_ARRAY_BUFFER",&ELEMENT_ARRAY_BUFFER,false)
+    .addVariable("STATIC_DRAW",&STATIC_DRAW,false)
+    .addVariable("COLOR_BUFFER_BIT",&COLOR_BUFFER_BIT,false)
+    .addVariable("DEPTH_BUFFER_BIT",&DEPTH_BUFFER_BIT,false)
+    .addVariable("TEXTURE_2D",&TEXTURE_2D,false)
+    .addVariable("RGBA",&RGBA,false)
+    .addVariable("UNSIGNED_BYTE",&UNSIGNED_BYTE,false)
     .endNamespace();
 }
