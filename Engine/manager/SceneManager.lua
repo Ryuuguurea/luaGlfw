@@ -22,26 +22,10 @@ SceneManager=class({
         end,
         Add=function(self,actor)
             self.nodes[actor.uuid]=actor
+        end,
+        SetDirty=function(self)
             self.dirty=true
         end
     }
 })
 
--- function Scene:Render()
---     -- GL.ClearColor(0.1,0.2,0.1,1);
---     -- GL.Clear(0x00004000|0x00000100);
-
---     for i,v in pairs(self.nodes) do
-
---         for i,v in pairs(v._components) do
---             if v.type==Renderer then
---                 v:Render()
---             end
---         end
---     end
--- end
--- function Scene:Update()
---     for i,v in pairs(self.nodes) do
---         v:Update()
---     end
--- end

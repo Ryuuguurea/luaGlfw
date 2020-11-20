@@ -26,8 +26,11 @@ return{
             FragColor=texture(mainTex,aTexcoord)*color;\
         }\
     ",
-    cull="CULL_FACE",
-    blend=nil,
+    cull=nil,
+    blend={
+        sfactor="SRC_ALPHA",
+        dfactor="ONE_MINUS_SRC_ALPHA"
+    },
     properties={
         mainTex="./Assets/textures/default.png",
         color={1,1,1,1}

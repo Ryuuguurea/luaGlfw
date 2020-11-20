@@ -58,6 +58,11 @@ Vector3= class({
             get=function(self)
                 return Vector3:new(self.x,self.y,self.z)
             end
+        },
+        length={
+            get=function(self)
+                return math.sqrt(self[1]*self[1]+self[2]*self[2]+self[3]*self[3])
+            end
         }
     },
     operator={

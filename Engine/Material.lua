@@ -5,9 +5,20 @@ Material=class({
         self.uniform={}
         for i,v in pairs(data.uniform)do
             if type(v)=="string" then
-                self.uniform[i]=AssetManager:Load(v,"texture2d")
+                self.uniform[i]={
+                    type="texture",
+                    value=AssetManager:Load(v,"texture2d")
+                }
             elseif type(v)=="table" then
-                self.uniform[i]=v
+                self.uniform[i]={
+                    type="vector4",
+                    value=v
+                }
+            elseif type(v)=="number" then
+                self.uniform[i]={
+                    type="float",
+                    value=v
+                }
             end
         end
     end,
@@ -21,8 +32,14 @@ Material=class({
         SetFloat=function(self,name,value)
             self.shader:SetFloat(name,value)
         end,
+        SetVector4=function(self,name,value)
+            self.shader:SetVector4(name,value)
+        end,
         GetUniformLocation=function(self,name)
             self.shader:GetUniformLocation(name)
-        end
+        end,
+        SetInt=function(self,name,value)
+            self.shader:SetInt(name,value)
+        end,
     }
 })

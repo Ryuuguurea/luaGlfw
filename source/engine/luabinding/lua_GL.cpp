@@ -180,6 +180,7 @@ static void
 BindTexture(int target ,int texture)
 {
     glBindTexture(target, texture);
+
 }
 static void
 DrawElements(int mode,int count)
@@ -206,6 +207,28 @@ Enable(int cap)
 {
     glEnable(cap);
 }
+static void
+Disable(int cap)
+{
+    glDisable(cap);
+}
+
+static void
+GenerateMipmap(int target){
+    glGenerateMipmap(target);
+}
+static void
+DrawArrays(int mode,int count){
+    glDrawArrays(mode,0x00,count);
+}
+static void
+DeleteBuffers(GLuint buffer){
+    glDeleteBuffers(1,&buffer);
+}
+static void 
+BlendFunc(GLenum sfactor,GLenum dfactor){
+    glBlendFunc(sfactor,dfactor);
+}
 int DEPTH_TEST=GL_DEPTH_TEST;
 int VERTEX_SHADER=GL_VERTEX_SHADER;
 int FRAGMENT_SHADER=GL_FRAGMENT_SHADER;
@@ -219,6 +242,13 @@ int DEPTH_BUFFER_BIT=GL_DEPTH_BUFFER_BIT;
 int TEXTURE_2D=GL_TEXTURE_2D;
 int RGBA=GL_RGBA;
 int UNSIGNED_BYTE=GL_UNSIGNED_BYTE;
+int TRIANGLES=GL_TRIANGLES;
+int TEXTURE0=GL_TEXTURE0;
+int CULL_FACE=GL_CULL_FACE;
+int LINES=GL_LINES;
+int BLEND= GL_BLEND;
+int ONE_MINUS_SRC_ALPHA=GL_ONE_MINUS_SRC_ALPHA;
+int SRC_ALPHA=GL_SRC_ALPHA;
 void Binding_GL(lua_State *L)
 {
     luabridge::getGlobalNamespace(L).beginNamespace("GL")
@@ -258,8 +288,14 @@ void Binding_GL(lua_State *L)
     .addFunction("Clear",Clear)
     .addFunction("DepthFunc",DepthFunc)
     .addFunction("Enable",Enable)
+    .addFunction("Disable",Disable)
     .addFunction("GenTextures",GenTextures)
     .addFunction("TexImage2D",TexImage2D)
+    .addFunction("GenerateMipmap",GenerateMipmap)
+    .addFunction("DrawArrays",DrawArrays)
+    .addFunction("DeleteBuffers",DeleteBuffers)
+    .addFunction("BlendFunc",BlendFunc)
+
     .addVariable("DEPTH_TEST",&DEPTH_TEST,false)
     .addVariable("VERTEX_SHADER",&VERTEX_SHADER,false)
     .addVariable("FRAGMENT_SHADER",&FRAGMENT_SHADER,false)
@@ -273,5 +309,12 @@ void Binding_GL(lua_State *L)
     .addVariable("TEXTURE_2D",&TEXTURE_2D,false)
     .addVariable("RGBA",&RGBA,false)
     .addVariable("UNSIGNED_BYTE",&UNSIGNED_BYTE,false)
+    .addVariable("TRIANGLES",&TRIANGLES,false)
+    .addVariable("TEXTURE0",&TEXTURE0,false)
+    .addVariable("CULL_FACE",&CULL_FACE,false)
+    .addVariable("LINES",&LINES,false)
+    .addVariable("BLEND",&BLEND,false)
+    .addVariable("ONE_MINUS_SRC_ALPHA",&ONE_MINUS_SRC_ALPHA,false)
+    .addVariable("SRC_ALPHA",&SRC_ALPHA,false)
     .endNamespace();
 }

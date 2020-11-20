@@ -1,7 +1,7 @@
 GUUID=0
 Actor=class({
     ctor=function(self,data)
-        self._components={}
+        self.components={}
         if data~=nil then
             self.uuid=data.uuid
             for i,v in pairs(data.components)do
@@ -12,6 +12,7 @@ Actor=class({
         end
         GUUID=math.max(self.uuid,GUUID)
         SceneManager:Add(self)
+        SceneManager:SetDirty()
     end,
     property={
         transform={
@@ -21,21 +22,48 @@ Actor=class({
         },
         AddComponent=function(self,type,data)
             local component=type:new(self,data)
-            self._components[type]=component
+            table.insert(self.components,component)
+            SceneManager:SetDirty()
             return component
         end,
         GetComponent=function(self,type)
-            return self._components[type]
+            for i,v in pairs(self.components)do
+                if v.type==type then
+                    return v
+                end
+            end
         end,
-        RemoveComponent=function(self,type)
-            self._components[type]=nil
+        GetComponents=function(self,type)
+            local tb={}
+            for i,v in pairs(self.components)do
+                if v.type==type then
+                    table.insert(tb,v)
+                end
+            end
+            return tb
+        end,
+        RemoveComponent=function(self,component)
+            local index=-1
+            for i,v in pairs(self.components)do
+                if v==component then
+                    table.remove(self.components,i)
+                    v:onDestroy()
+                end
+            end
+            SceneManager:SetDirty()
         end,
         Tick=function(self,delta)
-            for k,v in pairs(self._components)do
+            for k,v in pairs(self.components)do
                 if type(v.Tick)=='function'then
                     v:Tick()
                 end
             end
+        end,
+        onDestroy=function(self)
+            for i,v in pairs(self.components)do
+                v:onDestroy()
+            end
+            SceneManager:SetDirty()
         end           
     }
 })

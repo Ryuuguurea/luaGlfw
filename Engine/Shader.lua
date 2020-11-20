@@ -26,6 +26,13 @@ Shader=class({
         GL.DeleteShader(vertex)
         self.program=ID
         self.pass=data.pass
+        self.cull=GL[data.cull]
+        if data.blend~=nil then
+            self.blend={
+                sfactor=GL[data.blend.sfactor],
+                dfactor=GL[data.blend.dfactor]
+            }
+        end
     end,
     property={
         SetMat4=function(self,name,mat4)
@@ -35,10 +42,16 @@ Shader=class({
             GL.Uniform1f(self:GetUniformLocation(name),value)
         end,
         GetUniformLocation=function(self,name)
-            return GL.GetUniformLocation(self.shader.program,name)
+            return GL.GetUniformLocation(self.program,name)
         end,
         UseShader=function(self)
             GL.UseProgram(self.program)
+        end,
+        SetVector4=function(self,name,value)
+            GL.Uniform4fv(self:GetUniformLocation(name),value)
+        end,
+        SetInt=function(self,name,value)
+            GL.Uniform1i(self:GetUniformLocation(name),value)
         end
     }
 })

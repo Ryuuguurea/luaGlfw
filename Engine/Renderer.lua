@@ -1,21 +1,12 @@
 
 Renderer=class({
     ctor=function(self,actor,data)
-        self._materials={}
-        self._mesh=nil
-        self.actor=actor
-        self.drawMode={
-            ["wireframe"]=1,
-            ["TrianglesDrawMode"]=4,
-            ["TriangleStripDrawMode"]=5,
-            ["TriangleFanDrawMode"]=6
-        }
+        self.mesh=AssetManager:Load(data.mesh,"mesh")
         self.material=AssetManager:Load(data.material,"material")
     end,
     property={
-
         Draw=function(self)
-
+            self.mesh:Draw(GL.TRIANGLES)
         end
     },
     extend=Component

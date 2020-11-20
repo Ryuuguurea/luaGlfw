@@ -21,9 +21,12 @@ return {
                 
             },
             Transform={
-                position={0,0,-10},
+                position={0,0,10},
                 rotation={0,0,0,0},
                 scale={1,1,1},
+            },
+            EditorCamera={
+
             }
         }
     },
@@ -34,12 +37,64 @@ return {
         components={
             Renderer=
             {
-                material="./Assets/materials/default"
+                material="./Assets/materials/default",
+                mesh="./Assets/meshs/cube"
             },
             Transform={
                 position={0,0,0},
                 rotation={0,0,0,0},
                 scale={1,1,1},
+            }
+        }
+    },
+    {
+        name="quad",
+        uuid=3,
+        parent=0,
+        components={
+            Renderer=
+            {
+                material="./Assets/materials/blend",
+                mesh="./Assets/meshs/quad"
+            },
+            Transform={
+                position={2,0,0},
+                rotation={0,0.8,0,0},
+                scale={1,1,1},
+            }
+        }
+    },
+    {
+        name="quad2",
+        uuid=5,
+        parent=0,
+        components={
+            Renderer=
+            {
+                material="./Assets/materials/blend",
+                mesh="./Assets/meshs/quad"
+            },
+            Transform={
+                position={3,0,0},
+                rotation={0,0.8,0,0},
+                scale={1,1,1},
+            }
+        }
+    },
+    {
+        name="plane",
+        uuid=4,
+        parent=0,
+        components={
+            Renderer=
+            {
+                material="./Assets/materials/default2",
+                mesh="./Assets/meshs/quad"
+            },
+            Transform={
+                position={0,-0.5,0},
+                rotation={-1.57,0,0,0},
+                scale={10,10,10},
             }
         }
     }

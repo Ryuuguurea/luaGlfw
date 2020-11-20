@@ -16,9 +16,9 @@ Mesh=class({
         SetUp=function(self)
             self.VAO= GL.GenVertexArrays()
             GL.BindVertexArray(self.VAO)
-            attrib=0
+            local attrib=0
             for i,v in pairs(self.vertices) do
-                buffer_id= GL.GenBuffers()
+                local buffer_id= GL.GenBuffers()
                 GL.BindBuffer(GL.ARRAY_BUFFER,buffer_id)
                 GL.BufferDataf(GL.ARRAY_BUFFER,v.data,GL.STATIC_DRAW)
                 GL.EnableVertexAttribArray(attrib)

@@ -7,6 +7,8 @@ Component=class({
             get=function(self)
                 return self._actor
             end
-        }
+        },
+        onDestroy=function(self)
+        end
     }
 })

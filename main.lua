@@ -2,7 +2,8 @@ package.path=package.path ..";Engine/?.lua"
 require"Engine/Game"
 local window=Window("WINDOW",600,400)
 window:SetFramebufferSizeCallback(function(w,h)
-	GL.Viewport(0,0,w,h)
+    GL.Viewport(0,0,w,h)
+    GraphicManager:Resize(w,h)
 end)
 window:SetCursorPosCallback(function(x,y)
     Input._mousePosition=Vector3:new(x,y)
