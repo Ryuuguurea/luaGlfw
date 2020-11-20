@@ -21,6 +21,7 @@ Material=class({
                 }
             end
         end
+        self.wireFrame=data.wireFrame
     end,
     property={
         UseShader=function(self)

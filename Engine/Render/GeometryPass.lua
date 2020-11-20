@@ -53,7 +53,13 @@ GeometryPass=class({
             if render.material.shader.blend~=nil then
                 GL.BlendFunc(render.material.shader.blend.sfactor,render.material.shader.blend.dfactor)
             end
+            if render.material.wireFrame then
+                GL.PolygonMode(GL.LINE)
+            end
             render:Draw()
+            if render.material.wireFrame then
+                GL.PolygonMode(GL.FILL)
+            end
         end
     }
 })

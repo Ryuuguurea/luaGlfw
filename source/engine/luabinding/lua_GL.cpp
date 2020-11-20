@@ -229,6 +229,10 @@ static void
 BlendFunc(GLenum sfactor,GLenum dfactor){
     glBlendFunc(sfactor,dfactor);
 }
+static void
+PolygonMode(GLenum mode){
+    glPolygonMode(GL_FRONT_AND_BACK,mode);
+}
 int DEPTH_TEST=GL_DEPTH_TEST;
 int VERTEX_SHADER=GL_VERTEX_SHADER;
 int FRAGMENT_SHADER=GL_FRAGMENT_SHADER;
@@ -249,6 +253,8 @@ int LINES=GL_LINES;
 int BLEND= GL_BLEND;
 int ONE_MINUS_SRC_ALPHA=GL_ONE_MINUS_SRC_ALPHA;
 int SRC_ALPHA=GL_SRC_ALPHA;
+int LINE=GL_LINE;
+int FILL=GL_FILL;
 void Binding_GL(lua_State *L)
 {
     luabridge::getGlobalNamespace(L).beginNamespace("GL")
@@ -295,6 +301,7 @@ void Binding_GL(lua_State *L)
     .addFunction("DrawArrays",DrawArrays)
     .addFunction("DeleteBuffers",DeleteBuffers)
     .addFunction("BlendFunc",BlendFunc)
+    .addFunction("PolygonMode",PolygonMode)
 
     .addVariable("DEPTH_TEST",&DEPTH_TEST,false)
     .addVariable("VERTEX_SHADER",&VERTEX_SHADER,false)
@@ -316,5 +323,7 @@ void Binding_GL(lua_State *L)
     .addVariable("BLEND",&BLEND,false)
     .addVariable("ONE_MINUS_SRC_ALPHA",&ONE_MINUS_SRC_ALPHA,false)
     .addVariable("SRC_ALPHA",&SRC_ALPHA,false)
+    .addVariable("LINE",&LINE,false)
+    .addVariable("FILL",&FILL,false)
     .endNamespace();
 }

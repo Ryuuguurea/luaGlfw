@@ -88,7 +88,7 @@ return {
         components={
             Renderer=
             {
-                material="./Assets/materials/default2",
+                material="./Assets/materials/plane",
                 mesh="./Assets/meshs/quad"
             },
             Transform={

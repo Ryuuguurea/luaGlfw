@@ -33,6 +33,9 @@ Shader=class({
                 dfactor=GL[data.blend.dfactor]
             }
         end
+        if data.mode~=nil then
+            self.mode=GL[data.mode]
+        end
     end,
     property={
         SetMat4=function(self,name,mat4)
