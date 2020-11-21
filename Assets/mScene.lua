@@ -65,23 +65,6 @@ return {
         }
     },
     {
-        name="quad2",
-        uuid=5,
-        parent=0,
-        components={
-            Renderer=
-            {
-                material="./Assets/materials/blend",
-                mesh="./Assets/meshs/quad"
-            },
-            Transform={
-                position={3,0,0},
-                rotation={0,0.8,0,0},
-                scale={1,1,1},
-            }
-        }
-    },
-    {
         name="plane",
         uuid=4,
         parent=0,
@@ -97,5 +80,82 @@ return {
                 scale={10,10,10},
             }
         }
-    }
+    },
+    {
+        name="point light",
+        uuid=5,
+        parent=0,
+        components={
+            Transform={
+                position={0,0,10},
+                rotation={0,0,0},
+                scale={1,1,1}
+            },
+            Light={
+                color={1,0,0,1}
+            }
+        }
+    },
+    {
+        name="point light",
+        uuid=6,
+        parent=0,
+        components={
+            Transform={
+                position={0,0,10},
+                rotation={0,0,0},
+                scale={1,1,1}
+            },
+            Light={
+                color={1,0,0,1}
+            }
+        }
+    },
+    {
+        name="point light",
+        uuid=7,
+        parent=0,
+        components={
+            Transform={
+                position={0,0,10},
+                rotation={0,0,0},
+                scale={1,1,1}
+            },
+            Light={
+                color={1,0,0,1}
+            }
+        }
+    },
+    {
+        name="point light",
+        uuid=8,
+        parent=0,
+        components={
+            Transform={
+                position={0,0,10},
+                rotation={0,0,0},
+                scale={1,1,1}
+            },
+            Light={
+                color={1,0,0,1}
+            }
+        }
+    },
+    {
+        name="quad",
+        uuid=9,
+        parent=0,
+        components={
+            Renderer=
+            {
+                material="./Assets/materials/pbr",
+                mesh="./Assets/meshs/cube"
+            },
+            Transform={
+                position={-2,0,0},
+                rotation={0,0,0,0},
+                scale={1,1,1},
+            }
+        }
+    },
 }

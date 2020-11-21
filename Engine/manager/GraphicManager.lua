@@ -31,7 +31,8 @@ GraphicManager=class({
             self.frame={
                 geometry={},
                 camera={},
-                debug={}
+                debug={},
+                light={}
             }
             for i,v in pairs(SceneManager.nodes)do
                 for j,component in pairs(v.components)do
@@ -43,6 +44,9 @@ GraphicManager=class({
                     end
                     if component.type==LineRender then
                         table.insert(self.frame[component.material.shader.pass],component)
+                    end
+                    if component.type==Light then
+                        table.insert(self.frame.light,component)
                     end
                 end
             end

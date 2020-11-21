@@ -1,0 +1,10 @@
+return 
+{
+    shader="./Assets/shaders/pbr",
+    uniform={
+        albedoMap="./Assets/textures/albedo.png",
+        normalMap="./Assets/textures/normal.png",
+        ormMap="./Assets/textures/orm.png"
+    },
+    wireFrame=false
+}

@@ -42,5 +42,9 @@ Material=class({
         SetInt=function(self,name,value)
             self.shader:SetInt(name,value)
         end,
-    }
+        SetVector3=function(self,name,value)
+            self.shader:SetVector3(name,value)
+        end
+    },
+    extend=Component
 })

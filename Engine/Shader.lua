@@ -5,23 +5,20 @@ Shader=class({
         vertex=GL.CreateShader(GL.VERTEX_SHADER)
         GL.ShaderSource(vertex,1,vertexCode)
         GL.CompileShader(vertex)
-        if not GL.GetShaderiv(vertex,GL.COMPILE_STATUS) then        
-            print(GL.GetShaderInfoLog(vertex))
-        end
+        assert(GL.GetShaderiv(vertex,GL.COMPILE_STATUS)~=0,GL.GetShaderInfoLog(vertex))        
+
         fragment=GL.CreateShader(GL.FRAGMENT_SHADER)
         GL.ShaderSource(fragment,1,fragmentCode)
         GL.CompileShader(fragment)
-        if not GL.GetShaderiv(fragment,GL.COMPILE_STATUS) then
-            print(GL.GetShaderInfoLog(fragment))
-        end
+        assert(GL.GetShaderiv(fragment,GL.COMPILE_STATUS)~=0,GL.GetShaderInfoLog(fragment))
+
     
         local ID=GL.CreateProgram()
         GL.AttachShader(ID,vertex)
         GL.AttachShader(ID,fragment)
         GL.LinkProgram(ID)
-        if not GL.GetProgramiv(ID,GL.LINK_STATUS) then
-            print(GL.GetProgramInfoLog(fragment))
-        end
+        assert(GL.GetProgramiv(ID,GL.LINK_STATUS)~=0,GL.GetProgramInfoLog(ID))
+
         GL.DeleteShader(fragment)
         GL.DeleteShader(vertex)
         self.program=ID
@@ -36,6 +33,7 @@ Shader=class({
         if data.mode~=nil then
             self.mode=GL[data.mode]
         end
+        self.light=data.light
     end,
     property={
         SetMat4=function(self,name,mat4)
@@ -55,6 +53,9 @@ Shader=class({
         end,
         SetInt=function(self,name,value)
             GL.Uniform1i(self:GetUniformLocation(name),value)
+        end,
+        SetVector3=function(self,name,value)
+            GL.Uniform3fv(self:GetUniformLocation(name),{value[1],value[2],value[3]})
         end
     }
 })

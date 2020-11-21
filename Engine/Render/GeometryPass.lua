@@ -10,7 +10,7 @@ GeometryPass=class({
                 GL.Disable(GL.BLEND)
                 for j,render in pairs(frame.geometry)do
                     if render.material.shader.blend ==nil then
-                        self:DrawGeometry(camera,render)
+                        self:DrawGeometry(camera,render,frame)
                     else
                         table.insert(blendTable,render)
                     end
@@ -21,16 +21,24 @@ GeometryPass=class({
                     return (b.actor.transform.position-camera.actor.transform.position).length-(a.actor.transform.position-camera.actor.transform.position).length
                 end)
                 for j,render in pairs(blendTable)do
-                    self:DrawGeometry(camera,render)
+                    self:DrawGeometry(camera,render,frame)
                 end
             end
         end,
-        DrawGeometry=function(self,camera,render)
+        DrawGeometry=function(self,camera,render,frame)
             local viewMat4=camera.viewMat4
             local projectionMat4=camera.projectionMat4
             render.material:UseShader()
-            render.material:SetMat4("modelView",viewMat4*render.actor.transform.modelMat4)
+            render.material:SetMat4("model",render.actor.transform.modelMat4)
+            render.material:SetMat4("view",viewMat4)
             render.material:SetMat4("projection",projectionMat4)
+            if render.material.shader.light then
+                render.material:SetVector3("camPos",camera.actor.transform.position)
+                for i,light in pairs(frame.light)do
+                    render.material:SetVector3("lightPositions["..i-1 .."]",light.actor.transform.position)
+                    render.material:SetVector3("lightColors["..i-1 .."]",light.color)
+                end
+            end
             local textureIndex=0
             for k,uniform in pairs(render.material.uniform)do
                 if uniform.type=="vector4"then

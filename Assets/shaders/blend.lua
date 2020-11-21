@@ -6,13 +6,14 @@ return{
         layout (location=2) in vec3 tangent;\
         layout (location=3) in vec2 texcoord;\
         out vec2 aTexcoord;\
-        uniform mat4 modelView;\
+        uniform mat4 model;\
+        uniform mat4 view;\
         uniform mat4 projection;\
         uniform vec4 color;\
         void main()\
         {\
             aTexcoord=texcoord;\
-            gl_Position= projection * modelView * vec4(position,1.0f);\
+            gl_Position= projection * view * model * vec4(position,1.0f);\
         }\
     ",
     Frag="\

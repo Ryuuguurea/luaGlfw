@@ -28,5 +28,6 @@ void Lua_Img::Bind(lua_State *L){
     luabridge::getGlobalNamespace(L).beginClass<ImageData>("ImageData")
     .addProperty("width",&ImageData::width)
     .addProperty("height",&ImageData::height)
+    .addProperty("channels",&ImageData::nrChannels)
     .endClass();
 }

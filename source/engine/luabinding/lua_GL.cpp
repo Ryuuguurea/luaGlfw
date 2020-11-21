@@ -245,6 +245,7 @@ int COLOR_BUFFER_BIT=GL_COLOR_BUFFER_BIT;
 int DEPTH_BUFFER_BIT=GL_DEPTH_BUFFER_BIT;
 int TEXTURE_2D=GL_TEXTURE_2D;
 int RGBA=GL_RGBA;
+int RGB=GL_RGB;
 int UNSIGNED_BYTE=GL_UNSIGNED_BYTE;
 int TRIANGLES=GL_TRIANGLES;
 int TEXTURE0=GL_TEXTURE0;
@@ -325,5 +326,6 @@ void Binding_GL(lua_State *L)
     .addVariable("SRC_ALPHA",&SRC_ALPHA,false)
     .addVariable("LINE",&LINE,false)
     .addVariable("FILL",&FILL,false)
+    .addVariable("RGB",&RGB,false)
     .endNamespace();
 }

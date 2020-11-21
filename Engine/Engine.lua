@@ -120,6 +120,7 @@ require"Mesh"
 require"Time"
 require"Input"
 require"Texture2d"
+require"Light"
 
 require"manager/GraphicManager"
 require"manager/SceneManager"

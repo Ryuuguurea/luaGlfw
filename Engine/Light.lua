@@ -1,0 +1,8 @@
+Light=class({
+    extend=Component,
+    ctor=function(self,actor,data)
+        if data~=nil then
+            self.color=data.color
+        end
+    end
+})
