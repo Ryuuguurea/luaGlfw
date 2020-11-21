@@ -56,7 +56,7 @@ function combineBuffer(array){
             length:i.length
         }
         result.attributes.push(obj)
-        tmp+i.length
+        tmp+=i.length
     }
     return result
 }
