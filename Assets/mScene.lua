@@ -38,7 +38,7 @@ return {
             Renderer=
             {
                 material="./Assets/materials/default",
-                mesh="./Assets/meshs/cube"
+                mesh="./Assets/meshs/Cube"
             },
             Transform={
                 position={0,0,0},
@@ -55,7 +55,7 @@ return {
             Renderer=
             {
                 material="./Assets/materials/blend",
-                mesh="./Assets/meshs/quad"
+                mesh="./Assets/meshs/Plane"
             },
             Transform={
                 position={2,0,0},
@@ -72,7 +72,7 @@ return {
             Renderer=
             {
                 material="./Assets/materials/plane",
-                mesh="./Assets/meshs/quad"
+                mesh="./Assets/meshs/Plane"
             },
             Transform={
                 position={0,-0.5,0},
@@ -149,7 +149,7 @@ return {
             Renderer=
             {
                 material="./Assets/materials/pbr",
-                mesh="./Assets/meshs/cube"
+                mesh="./Assets/meshs/Cube"
             },
             Transform={
                 position={-2,0,0},

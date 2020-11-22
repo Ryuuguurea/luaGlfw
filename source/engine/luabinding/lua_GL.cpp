@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include<LuaBridge/LuaBridge.h>
 #include<LuaBridge/Vector.h>
-#include"lua_img.h"
+#include"lua_File.h"
 using namespace std;
 static int
 CreateShader(int type)
@@ -150,6 +150,10 @@ BufferDatai(int target,const std::vector<int>& data,int usage)
     glBufferData(target, sizeof(int)*data.size(), &data[0], usage);
 }
 static void
+BufferData(int target,const luabridge::RefCountedObjectPtr<BinaryData>&data,int offset,int length,int usage){
+    glBufferData(target, length, &(data->data[offset]), usage);
+}
+static void
 EnableVertexAttribArray(int index)
 {
     glEnableVertexAttribArray(index);
@@ -157,6 +161,7 @@ EnableVertexAttribArray(int index)
 static void
 VertexAttribPointer(int index,int size)
 {
+
     glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, 0, (void *)0);
 }
 static int
@@ -183,9 +188,9 @@ BindTexture(int target ,int texture)
 
 }
 static void
-DrawElements(int mode,int count)
+DrawElements(int mode,int count,int type)
 {
-    glDrawElements(mode, count, GL_UNSIGNED_INT, 0);
+    glDrawElements(mode, count, type, 0);
 }
 static void
 ClearColor(float r,float g,float b,float a)
@@ -284,6 +289,7 @@ void Binding_GL(lua_State *L)
     .addFunction("GenBuffers",GenBuffers)
     .addFunction("BindVertexArray",BindVertexArray)
     .addFunction("BindBuffer",BindBuffer)
+    .addFunction("BufferData",BufferData)
     .addFunction("BufferDatai",BufferDatai)
     .addFunction("BufferDataf",BufferDataf)
     .addFunction("EnableVertexAttribArray",EnableVertexAttribArray)
@@ -303,6 +309,7 @@ void Binding_GL(lua_State *L)
     .addFunction("DeleteBuffers",DeleteBuffers)
     .addFunction("BlendFunc",BlendFunc)
     .addFunction("PolygonMode",PolygonMode)
+
 
     .addVariable("DEPTH_TEST",&DEPTH_TEST,false)
     .addVariable("VERTEX_SHADER",&VERTEX_SHADER,false)

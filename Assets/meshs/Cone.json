@@ -1,0 +1,1 @@
+{"name":"Cone","attributes":[{"name":"POSITION","type":5126,"offset":0,"length":1536},{"name":"NORMAL","type":5126,"offset":1536,"length":1536},{"name":"TEXCOORD_0","type":5126,"offset":3072,"length":1024}],"indices":{"type":5123,"offset":4096,"length":372}}

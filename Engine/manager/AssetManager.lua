@@ -9,7 +9,7 @@ AssetManager=class({
         end,
         Load=function(self,path,type)
             if self.cache[path]==nil and type=="mesh"then
-                self.cache[path]=Mesh:new(require(path))
+                self.cache[path]=Mesh:new(path)
             elseif self.cache[path]==nil and type=="texture2d"then
                 self.cache[path]=Texture2d:new(path)
             elseif self.cache[path]==nil and type=="material"then
