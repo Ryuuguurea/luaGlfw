@@ -24,6 +24,8 @@ struct BinaryData:luabridge::RefCountedObject{
     BinaryData(int);
     BinaryData(const BinaryData&)=delete;
     BinaryData &operator=(const BinaryData&)=delete;
+    void Set(int,unsigned char);
+    unsigned char Get(int);
 };
 
 class Lua_File

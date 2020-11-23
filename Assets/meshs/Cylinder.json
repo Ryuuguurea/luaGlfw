@@ -1,1 +1,0 @@
-{"name":"Cylinder","attributes":[{"name":"POSITION","type":5126,"offset":0,"length":2304},{"name":"NORMAL","type":5126,"offset":2304,"length":2304},{"name":"TEXCOORD_0","type":5126,"offset":4608,"length":1536}],"indices":{"type":5123,"offset":6144,"length":744}}

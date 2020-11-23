@@ -4,7 +4,7 @@ Game=class({
 		Initialize=function(self)
 			AssetManager:Initialize()
 			GraphicManager:Initialize()
-			SceneManager:Initialize(require("./Assets/mScene"))
+			SceneManager:Initialize(require("./Assets/scenes/level2/scene"))
 			DebugManager:Initialize()
 		end,
 		Tick=function(self,delta)

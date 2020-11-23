@@ -1,5 +1,5 @@
 Transform=class({
-    ctor=function(self,actor,data)
+    ctor=function(self,data)
         if data~=nil then
             self.position=Vector3:new(data.position[1],data.position[2],data.position[3])
             self.localRotation=Quaternion:Euler(Vector3:new(data.rotation[1],data.rotation[2],data.rotation[3]))

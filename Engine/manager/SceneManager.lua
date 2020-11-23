@@ -15,7 +15,7 @@ SceneManager=class({
         end,
         Tick=function(self,delta)
             for i,v in pairs(self.nodes) do
-                v:Tick()
+                v:Tick(delta)
             end
         end,
         Finalize=function(self)
@@ -25,6 +25,9 @@ SceneManager=class({
         end,
         SetDirty=function(self)
             self.dirty=true
+        end,
+        GetActor=function(self,uuid)
+            return self.nodes[uuid]
         end
     }
 })

@@ -1,6 +1,6 @@
 
 Renderer=class({
-    ctor=function(self,actor,data)
+    ctor=function(self,data)
         self.mesh=AssetManager:Load(data.mesh,"mesh")
         self.material=AssetManager:Load(data.material,"material")
     end,

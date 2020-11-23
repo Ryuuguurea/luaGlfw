@@ -1,4 +1,5 @@
-return {
+require"./Assets/scenes/level2/level2Controller"
+return{
     {
         name="root",
         uuid=0,
@@ -8,6 +9,10 @@ return {
                 position={0,0,0},
                 rotation={0,0,0,0},
                 scale={1,1,1},
+            },
+            level2Controller={
+                cube=9,
+                light={5,6,7,8}
             }
         }
     },
@@ -31,68 +36,17 @@ return {
         }
     },
     {
-        name="Cube",
-        uuid=2,
-        parent=0,
-        components={
-            Renderer=
-            {
-                material="./Assets/materials/default",
-                mesh="./Assets/meshs/Cube"
-            },
-            Transform={
-                position={0,0,0},
-                rotation={0,0,0,0},
-                scale={1,1,1},
-            }
-        }
-    },
-    {
-        name="quad",
-        uuid=3,
-        parent=0,
-        components={
-            Renderer=
-            {
-                material="./Assets/materials/blend",
-                mesh="./Assets/meshs/Plane"
-            },
-            Transform={
-                position={2,0,0},
-                rotation={0,0,0,0},
-                scale={1,1,1},
-            }
-        }
-    },
-    {
-        name="plane",
-        uuid=4,
-        parent=0,
-        components={
-            Renderer=
-            {
-                material="./Assets/materials/plane",
-                mesh="./Assets/meshs/Plane"
-            },
-            Transform={
-                position={0,-1,0},
-                rotation={0,0,0,0},
-                scale={10,10,10},
-            }
-        }
-    },
-    {
         name="point light",
         uuid=5,
         parent=0,
         components={
             Transform={
-                position={0,0,10},
+                position={0,10,10},
                 rotation={0,0,0},
                 scale={1,1,1}
             },
             Light={
-                color={1,0,0,1}
+                color={150,150,150,1}
             }
         }
     },
@@ -102,12 +56,12 @@ return {
         parent=0,
         components={
             Transform={
-                position={0,0,10},
+                position={0,10,-10},
                 rotation={0,0,0},
                 scale={1,1,1}
             },
             Light={
-                color={1,0,0,1}
+                color={150,150,150,1}
             }
         }
     },
@@ -117,12 +71,12 @@ return {
         parent=0,
         components={
             Transform={
-                position={0,0,10},
+                position={10,10,0},
                 rotation={0,0,0},
                 scale={1,1,1}
             },
             Light={
-                color={1,0,0,1}
+                color={150,150,150,1}
             }
         }
     },
@@ -132,17 +86,17 @@ return {
         parent=0,
         components={
             Transform={
-                position={0,0,10},
+                position={-10,10,0},
                 rotation={0,0,0},
                 scale={1,1,1}
             },
             Light={
-                color={1,0,0,1}
+                color={150,150,150,1}
             }
         }
     },
     {
-        name="quad",
+        name="Cube",
         uuid=9,
         parent=0,
         components={
@@ -152,7 +106,7 @@ return {
                 mesh="./Assets/meshs/Cube"
             },
             Transform={
-                position={-2,0,0},
+                position={0,0,0},
                 rotation={0,0,0,0},
                 scale={1,1,1},
             }

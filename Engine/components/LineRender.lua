@@ -1,6 +1,6 @@
 
 LineRender=class({
-    ctor=function(self,actor,data)
+    ctor=function(self,data)
         self.material=Material:new({
             shader="./Assets/shaders/debug",
             uniform={

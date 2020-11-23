@@ -21,7 +21,7 @@ Actor=class({
             end
         },
         AddComponent=function(self,type,data)
-            local component=type:new(self,data)
+            local component=type:new(data,self)
             table.insert(self.components,component)
             SceneManager:SetDirty()
             return component
@@ -55,7 +55,7 @@ Actor=class({
         Tick=function(self,delta)
             for k,v in pairs(self.components)do
                 if type(v.Tick)=='function'then
-                    v:Tick()
+                    v:Tick(delta)
                 end
             end
         end,

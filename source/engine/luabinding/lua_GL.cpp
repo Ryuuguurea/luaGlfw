@@ -256,6 +256,7 @@ int TRIANGLES=GL_TRIANGLES;
 int TEXTURE0=GL_TEXTURE0;
 int CULL_FACE=GL_CULL_FACE;
 int LINES=GL_LINES;
+int TRIANGLE_STRIP=GL_TRIANGLE_STRIP;
 int BLEND= GL_BLEND;
 int ONE_MINUS_SRC_ALPHA=GL_ONE_MINUS_SRC_ALPHA;
 int SRC_ALPHA=GL_SRC_ALPHA;
@@ -334,5 +335,7 @@ void Binding_GL(lua_State *L)
     .addVariable("LINE",&LINE,false)
     .addVariable("FILL",&FILL,false)
     .addVariable("RGB",&RGB,false)
+    .addVariable("TRIANGLE_STRIP",&TRIANGLE_STRIP,false)
+    
     .endNamespace();
 }

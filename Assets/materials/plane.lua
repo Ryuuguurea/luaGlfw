@@ -1,8 +1,10 @@
 return 
 {
-    shader="./Assets/shaders/default",
+    shader="./Assets/shaders/pbr",
     uniform={
-        color={0.5,0.5,0.5,1},
-        mainTex="./Assets/textures/white.png"
-    }
+        albedoMap="./Assets/textures/albedo.png",
+        normalMap="./Assets/textures/normal.png",
+        ormMap="./Assets/textures/orm.png"
+    },
+    wireFrame=false
 }

@@ -42,6 +42,12 @@ BinaryData::~BinaryData(){
     delete data;
     cout<<"data free"<<endl;
 }
+void BinaryData::Set(int i,unsigned char value){
+    data[i]=value;
+}
+unsigned char BinaryData::Get(int i){
+    return data[i];
+}
 void Lua_File::Bind(lua_State *L){
     luabridge::getGlobalNamespace(L).beginClass<Lua_File>("File")
     .addStaticFunction("LoadImage",LoadImage)
@@ -53,6 +59,9 @@ void Lua_File::Bind(lua_State *L){
     .addProperty("channels",&ImageData::nrChannels)
     .endClass();
     luabridge::getGlobalNamespace(L).beginClass<BinaryData>("BinaryData")
+    .addConstructor<void(*)(int)>()
     .addProperty("length",&BinaryData::length)
+    .addFunction("Set",&BinaryData::Set)
+    .addFunction("Get",&BinaryData::Get)
     .endClass();
 }

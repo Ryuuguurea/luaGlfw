@@ -1,1 +1,0 @@
-{"name":"Icosphere","attributes":[{"name":"POSITION","type":5126,"offset":0,"length":2880},{"name":"NORMAL","type":5126,"offset":2880,"length":2880},{"name":"TEXCOORD_0","type":5126,"offset":5760,"length":1920}],"indices":{"type":5123,"offset":7680,"length":480}}

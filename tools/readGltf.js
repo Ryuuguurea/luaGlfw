@@ -44,6 +44,7 @@ for(let mesh of struct.meshes){
         obj.attributes[i].offset=combine.attributes[i].offset
         obj.attributes[i].length=combine.attributes[i].length
     }   
+    console.log(`导出mesh:${mesh.name}`)
     fs.writeFileSync(out+'/'+mesh.name+'.bin',combine.buffer)
     fs.writeFileSync(out+'/'+mesh.name+'.json',JSON.stringify(obj))
 }

@@ -42,7 +42,7 @@ end
 Game:Initialize()
 mainLoop=function()
     Time:Update(window:GetTime())
-    Game.Tick(Time.deltaTime)
+    Game:Tick(Time.deltaTime)
     window:SwapBuffers()
     Input._mouseScroll=Vector3:new()
     window:PollEvents()

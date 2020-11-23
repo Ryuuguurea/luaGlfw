@@ -1,5 +1,5 @@
 Component=class({
-    ctor=function(self,actor)
+    ctor=function(self,data,actor)
         self._actor=actor
     end,
     property={
