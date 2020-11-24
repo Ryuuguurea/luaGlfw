@@ -9,9 +9,14 @@ Material=class({
                     type="texture",
                     value=AssetManager:Load(v,"texture2d")
                 }
-            elseif type(v)=="table" then
+            elseif type(v)=="table" and #v==4 then
                 self.uniform[i]={
                     type="vector4",
+                    value=v
+                }
+            elseif type(v)=="table" and #v==3 then
+                self.uniform[i]={
+                    type="vector3",
                     value=v
                 }
             elseif type(v)=="number" then

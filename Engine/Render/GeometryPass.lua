@@ -43,6 +43,8 @@ GeometryPass=class({
             for k,uniform in pairs(render.material.uniform)do
                 if uniform.type=="vector4"then
                     render.material:SetVector4(k,uniform.value)
+                elseif uniform.type=="vector3"then
+                    render.material:SetVector3(k,uniform.value)
                 elseif uniform.type=="float"then
                     render.material:SetFloat(k,uniform.value)
                 elseif uniform.type=="texture"then

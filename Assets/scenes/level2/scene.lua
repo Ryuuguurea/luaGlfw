@@ -41,12 +41,12 @@ return{
         parent=0,
         components={
             Transform={
-                position={0,10,10},
+                position={-10,10,10},
                 rotation={0,0,0},
                 scale={1,1,1}
             },
             Light={
-                color={150,150,150,1}
+                color={300,300,300,1}
             }
         }
     },
@@ -56,12 +56,12 @@ return{
         parent=0,
         components={
             Transform={
-                position={0,10,-10},
+                position={10,10,10},
                 rotation={0,0,0},
                 scale={1,1,1}
             },
             Light={
-                color={150,150,150,1}
+                color={300,300,300,1}
             }
         }
     },
@@ -71,12 +71,12 @@ return{
         parent=0,
         components={
             Transform={
-                position={10,10,0},
+                position={-10,-10,10},
                 rotation={0,0,0},
                 scale={1,1,1}
             },
             Light={
-                color={150,150,150,1}
+                color={300,300,300,1}
             }
         }
     },
@@ -86,12 +86,12 @@ return{
         parent=0,
         components={
             Transform={
-                position={-10,10,0},
+                position={10,-10,10},
                 rotation={0,0,0},
                 scale={1,1,1}
             },
             Light={
-                color={150,150,150,1}
+                color={300,300,300,1}
             }
         }
     },
@@ -102,8 +102,8 @@ return{
         components={
             Renderer=
             {
-                material="./Assets/materials/pbr",
-                mesh="./Assets/meshs/Cube"
+                material="./Assets/materials/pbrcolor",
+                mesh="./Assets/meshs/Icosphere"
             },
             Transform={
                 position={0,0,0},

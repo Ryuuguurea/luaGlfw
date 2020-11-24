@@ -8,7 +8,7 @@ level2Controller=class({
                 self:Init()
             end
             for i,v in pairs(self.light)do
-                v.transform.position=v.transform.position+Vector3:new(math.sin(Time.time)*5,0,0)
+                v.transform.position=v.transform.position+Vector3:new(math.sin(Time.time)*5*5,0,0)
             end
         end,
         Init=function(self)
