@@ -1,6 +1,7 @@
 #include "lua_File.h"
 #include "stb_image.h"
 #include "LuaBridge/LuaBridge.h"
+#include<LuaBridge/Vector.h>
 #include <fstream>
 #include<iterator>
 using namespace std;
@@ -42,11 +43,75 @@ BinaryData::~BinaryData(){
     delete data;
     cout<<"data free"<<endl;
 }
-void BinaryData::Set(int i,unsigned char value){
-    data[i]=value;
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint8(vector<unsigned char> value){
+    luabridge::RefCountedObjectPtr<BinaryData> object;
+    size_t length=value.size();
+    object=new BinaryData(length);
+    for(size_t i=0;i<length;i++){
+        object->data[i]=value[i];
+    }
+    return object;
 }
-unsigned char BinaryData::Get(int i){
-    return data[i];
+std::vector<unsigned char> BinaryData::GetUint8(){
+    std::vector<unsigned char> result;
+    for(size_t i=0;i<length;i++){
+        result.push_back(data[i]);
+    }
+    return result;
+}
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromFloat32(std::vector<float> value){
+   luabridge::RefCountedObjectPtr<BinaryData> object;
+    size_t length=value.size();
+    object=new BinaryData(length*4);
+    for(size_t i=0;i<length;i++){
+        float *ptr= (float*)&object->data[i*4];
+        *ptr=value[i];
+    }
+    return object;
+}
+std::vector<float> BinaryData::GetFloat32(){
+    std::vector<float> result;
+    for(size_t i=0;i<length;i=i+4){
+        float *ptr=(float*)&data[i];
+        result.push_back(*ptr);
+    }
+    return result;
+}
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromInt32(std::vector<int> value){
+   luabridge::RefCountedObjectPtr<BinaryData> object;
+    size_t length=value.size();
+    object=new BinaryData(length*4);
+    for(size_t i=0;i<length;i++){
+        int *ptr= (int*)&object->data[i*4];
+        *ptr=value[i];
+    }
+    return object;
+}
+std::vector<int> BinaryData::GetInt32(){
+    std::vector<int> result;
+    for(size_t i=0;i<length;i=i+4){
+        int *ptr=(int*)&data[i];
+        result.push_back(*ptr);
+    }
+    return result;
+}
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint16(std::vector<uint16_t> value){
+   luabridge::RefCountedObjectPtr<BinaryData> object;
+    size_t length=value.size();
+    object=new BinaryData(length*4);
+    for(size_t i=0;i<length;i++){
+        uint16_t *ptr= (uint16_t*)&object->data[i*4];
+        *ptr=value[i];
+    }
+    return object;
+}
+std::vector<uint16_t> BinaryData::GetUint16(){
+    std::vector<uint16_t> result;
+    for(size_t i=0;i<length;i=i+4){
+        uint16_t *ptr=(uint16_t*)&data[i];
+        result.push_back(*ptr);
+    }
+    return result;
 }
 void Lua_File::Bind(lua_State *L){
     luabridge::getGlobalNamespace(L).beginClass<Lua_File>("File")
@@ -61,7 +126,13 @@ void Lua_File::Bind(lua_State *L){
     luabridge::getGlobalNamespace(L).beginClass<BinaryData>("BinaryData")
     .addConstructor<void(*)(int)>()
     .addProperty("length",&BinaryData::length)
-    .addFunction("Set",&BinaryData::Set)
-    .addFunction("Get",&BinaryData::Get)
+    .addStaticFunction("FromUint8",&BinaryData::FromUint8)
+    .addStaticFunction("FromFloat32",&BinaryData::FromFloat32)
+    .addStaticFunction("FromInt32",&BinaryData::FromInt32)
+    .addStaticFunction("FromUint16",&BinaryData::FromUint16)
+    .addFunction("GetUint8",&BinaryData::GetUint8)
+    .addFunction("GetUint16",&BinaryData::GetUint16)
+    .addFunction("GetFloat32",&BinaryData::GetFloat32)
+    .addFunction("GetInt32",&BinaryData::GetInt32)
     .endClass();
 }

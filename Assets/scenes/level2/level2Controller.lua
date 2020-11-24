@@ -18,6 +18,9 @@ level2Controller=class({
             for i,v in pairs(self.data.light)do
                 table.insert(self.light,SceneManager:GetActor(v))
             end
+
+            local b=BinaryData.FromFloat32({1.1,2.2,3.3,4.4})
+            local c=b:GetFloat32()
         end
     },
     extend=Component

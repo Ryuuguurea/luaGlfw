@@ -19,13 +19,19 @@ struct ImageData:luabridge::RefCountedObject{
 };
 struct BinaryData:luabridge::RefCountedObject{
     char* data;
-    int length;
+    size_t length;
     ~BinaryData();
     BinaryData(int);
     BinaryData(const BinaryData&)=delete;
     BinaryData &operator=(const BinaryData&)=delete;
-    void Set(int,unsigned char);
-    unsigned char Get(int);
+    static luabridge::RefCountedObjectPtr<BinaryData> FromUint8(std::vector<unsigned char>);
+    std::vector<unsigned char> GetUint8();
+    static luabridge::RefCountedObjectPtr<BinaryData> FromUint16(std::vector<uint16_t>);
+    std::vector<uint16_t> GetUint16();
+    static luabridge::RefCountedObjectPtr<BinaryData> FromFloat32(std::vector<float>);
+    std::vector<float> GetFloat32();
+    static luabridge::RefCountedObjectPtr<BinaryData> FromInt32(std::vector<int>);
+    std::vector<int> GetInt32();
 };
 
 class Lua_File

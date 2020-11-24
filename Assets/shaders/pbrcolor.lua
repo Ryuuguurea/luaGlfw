@@ -41,7 +41,7 @@ return{
         float nom = a2;\
         float denom = (NdotH2 * (a2 - 1.0) + 1.0);\
         denom = PI * denom * denom;\
-        return nom / denom;\
+        return nom / max(denom, 0.001);\
     }\
     float GeometrySchlickGGX(float NdotV, float roughness)\
     {\
@@ -79,10 +79,10 @@ return{
             vec3 radiance = lightColors[i] * attenuation;\
             float NDF = DistributionGGX(N, H, roughness);\
             float G   = GeometrySmith(N, V, L, roughness);\
-            vec3 F    = fresnelSchlick(max(dot(H, V), 0.0), F0);\
+            vec3 F    = fresnelSchlick(clamp(dot(H, V), 0.0,1.0), F0);\
             vec3 nominator    = NDF * G * F;\
             float denominator = 4 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0) + 0.001;\
-            vec3 specular = nominator / denominator;\
+            vec3 specular = nominator / max(denominator, 0.001);\
             vec3 kS = F;\
             vec3 kD = vec3(1.0) - kS;\
             kD *= 1.0 - metallic;\
