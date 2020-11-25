@@ -51,5 +51,11 @@ Material=class({
             self.shader:SetVector3(name,value)
         end
     },
-    extend=Component
+    extend=Component,
+    static={
+        Load=function(self,path)
+            local data=require(path)
+            local shader=AssetManager:Load(data.shader,"shader")
+        end
+    }
 })

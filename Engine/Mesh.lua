@@ -4,13 +4,11 @@ local typeMap={
 }
 
 Mesh=class({
-    ctor=function(self,path)
-        self.path=path
-        local data=require(path)
+    ctor=function(self,data)
+        self.buffers={}
         self.attributes=data.attributes
         self.indices=data.indices
-        self.buffers={}
-        self:SetUp()
+        self:SetUp(data.buffer)
     end,
     property={
         Draw=function(self,mode)
@@ -18,8 +16,7 @@ Mesh=class({
             GL.DrawElements(mode,self.indices.length,self.indices.componentType)
             GL.BindVertexArray(0)
         end,
-        SetUp=function(self)
-            local buffer=File.LoadFile(self.path..'.bin')
+        SetUp=function(self,buffer)
             assert(buffer~=nil)
             self.VAO= GL.GenVertexArrays()
             GL.BindVertexArray(self.VAO)
@@ -34,6 +31,18 @@ Mesh=class({
             index_buffer=GL.GenBuffers()
             GL.BindBuffer(GL.ELEMENT_ARRAY_BUFFER,index_buffer)
             GL.BufferData(GL.ELEMENT_ARRAY_BUFFER,buffer,self.indices.offset,self.indices.length,GL.STATIC_DRAW)
+        end
+    },
+    static={
+        Load=function(self,path)
+            local data=require(path)
+            local buffer=File.LoadFile(path..'.bin')
+            assert(buffer~=nil)
+            return Mesh:new({
+                attributes:data.attributes,
+                indices:data.indices,
+                buffer:buffer
+            })
         end
     }
 })

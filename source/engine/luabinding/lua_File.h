@@ -24,6 +24,8 @@ struct BinaryData:luabridge::RefCountedObject{
     BinaryData(int);
     BinaryData(const BinaryData&)=delete;
     BinaryData &operator=(const BinaryData&)=delete;
+    luabridge::RefCountedObjectPtr<BinaryData> Slice(size_t,size_t);
+    static luabridge::RefCountedObjectPtr<BinaryData> Join(std::vector<luabridge::RefCountedObjectPtr<BinaryData>>);
     static luabridge::RefCountedObjectPtr<BinaryData> FromUint8(std::vector<unsigned char>);
     std::vector<unsigned char> GetUint8();
     static luabridge::RefCountedObjectPtr<BinaryData> FromUint16(std::vector<uint16_t>);
@@ -32,6 +34,7 @@ struct BinaryData:luabridge::RefCountedObject{
     std::vector<float> GetFloat32();
     static luabridge::RefCountedObjectPtr<BinaryData> FromInt32(std::vector<int>);
     std::vector<int> GetInt32();
+
 };
 
 class Lua_File

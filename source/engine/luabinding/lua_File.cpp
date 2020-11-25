@@ -43,6 +43,30 @@ BinaryData::~BinaryData(){
     delete data;
     cout<<"data free"<<endl;
 }
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::Slice(size_t start,size_t end){
+    luabridge::RefCountedObjectPtr<BinaryData> object;
+    object=new BinaryData(end-start);
+    for(size_t i=start;i<end;i++){
+        object->data[i-start]=data[i];
+    }
+    return object;
+}
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::Join(std::vector<luabridge::RefCountedObjectPtr<BinaryData>> list){
+    luabridge::RefCountedObjectPtr<BinaryData> object;
+    size_t length;
+    for(auto i:list){
+        length+=i->length;
+    }
+    object=new BinaryData(length);
+    int index=0;
+    for(auto obj:list){
+        for(size_t i=0;i<obj->length;i++){
+            object->data[index]=obj->data[i];
+            index++;
+        }
+    }
+    return object;
+}
 luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint8(vector<unsigned char> value){
     luabridge::RefCountedObjectPtr<BinaryData> object;
     size_t length=value.size();
@@ -130,9 +154,11 @@ void Lua_File::Bind(lua_State *L){
     .addStaticFunction("FromFloat32",&BinaryData::FromFloat32)
     .addStaticFunction("FromInt32",&BinaryData::FromInt32)
     .addStaticFunction("FromUint16",&BinaryData::FromUint16)
+    .addStaticFunction("Join",&BinaryData::Join)
     .addFunction("GetUint8",&BinaryData::GetUint8)
     .addFunction("GetUint16",&BinaryData::GetUint16)
     .addFunction("GetFloat32",&BinaryData::GetFloat32)
     .addFunction("GetInt32",&BinaryData::GetInt32)
+    .addFunction("Slice",&BinaryData::Slice)
     .endClass();
 }

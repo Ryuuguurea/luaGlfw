@@ -1,8 +1,18 @@
 
 Renderer=class({
     ctor=function(self,data)
-        self.mesh=AssetManager:Load(data.mesh,"mesh")
-        self.material=AssetManager:Load(data.material,"material")
+        if data~=nil then
+            if type(data.mesh)=='string'then
+                self.mesh=AssetManager:Load(data.mesh,"mesh")
+            else
+                self.mesh=data.mesh
+            end
+            if type(data.material)=='string'then
+                self.material=AssetManager:Load(data.material,"material")
+            else
+                self.material=data.material
+            end
+        end
     end,
     property={
         Draw=function(self)

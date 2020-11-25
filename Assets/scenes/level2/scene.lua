@@ -94,22 +94,5 @@ return{
                 color={300,300,300,1}
             }
         }
-    },
-    {
-        name="Cube",
-        uuid=9,
-        parent=0,
-        components={
-            Renderer=
-            {
-                material="./Assets/materials/pbrcolor",
-                mesh="./Assets/meshs/Icosphere"
-            },
-            Transform={
-                position={0,0,0},
-                rotation={0,0,0,0},
-                scale={1,1,1},
-            }
-        }
-    },
+    }
 }
