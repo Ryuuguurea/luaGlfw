@@ -53,7 +53,7 @@ luabridge::RefCountedObjectPtr<BinaryData> BinaryData::Slice(size_t start,size_t
 }
 luabridge::RefCountedObjectPtr<BinaryData> BinaryData::Join(std::vector<luabridge::RefCountedObjectPtr<BinaryData>> list){
     luabridge::RefCountedObjectPtr<BinaryData> object;
-    size_t length;
+    size_t length=0;
     for(auto i:list){
         length+=i->length;
     }

@@ -18,8 +18,8 @@ level2Controller=class({
             for i,v in pairs(self.data.light)do
                 table.insert(self.light,SceneManager:GetActor(v))
             end
-
-            local m=Mesh:new(self:sphereMesh(64,64))
+            local meshData=self:sphereMesh(6,8)
+            local m=Mesh:new(meshData)
             local a=Actor:new()
             a:AddComponent(Transform)
             local render=a:AddComponent(Renderer,
@@ -34,8 +34,8 @@ level2Controller=class({
             local uv={}
             local normals={}
             local indices={}
-            for y=0,Y_SEGMENTS-1 do
-                for x=0,X_SEGMENTS-1 do
+            for y=0,Y_SEGMENTS do
+                for x=0,X_SEGMENTS do
                     local xSegment=x/X_SEGMENTS
                     local ySegment=y/Y_SEGMENTS
                     local xPos=math.cos(xSegment*2*PI)*math.sin(ySegment*PI)
@@ -78,7 +78,8 @@ level2Controller=class({
                 table.insert(data,v[1])
                 table.insert(data,v[2])
             end
-
+            print(#indices)
+            print(#positions)
             return {
                 indices={
                     componentType= 5123,
