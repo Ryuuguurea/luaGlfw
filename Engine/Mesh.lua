@@ -39,9 +39,9 @@ Mesh=class({
             local buffer=File.LoadFile(path..'.bin')
             assert(buffer~=nil)
             return Mesh:new({
-                attributes:data.attributes,
-                indices:data.indices,
-                buffer:buffer
+                attributes=data.attributes,
+                indices=data.indices,
+                buffer=buffer
             })
         end
     }

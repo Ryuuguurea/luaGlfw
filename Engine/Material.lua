@@ -1,7 +1,7 @@
 Material=class({
     ctor=function(self,data)
         self.data=data
-        self.shader=AssetManager:Load(data.shader,"shader")
+        self.shader=data.shader
         self.uniform={}
         for i,v in pairs(data.uniform)do
             if type(v)=="string" then
@@ -56,6 +56,11 @@ Material=class({
         Load=function(self,path)
             local data=require(path)
             local shader=AssetManager:Load(data.shader,"shader")
+            return Material:new({
+                uniform=data.uniform,
+                shader=shader,
+                wireFrame=data.wireFrame
+            })
         end
     }
 })

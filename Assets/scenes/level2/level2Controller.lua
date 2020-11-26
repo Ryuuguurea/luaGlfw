@@ -24,8 +24,8 @@ level2Controller=class({
             a:AddComponent(Transform)
             local render=a:AddComponent(Renderer,
             {
-                material="./Assets/materials/plane",
-                mesh="./Assets/meshs/Plane"
+                material="./Assets/materials/pbrcolor",
+                mesh=m
             })
         end,
         sphereMesh=function(self,X_SEGMENTS,Y_SEGMENTS)
@@ -49,12 +49,12 @@ level2Controller=class({
             local oddRow=false
             for y=0,Y_SEGMENTS-1 do
                 if not oddRow then
-                    for x=0,X_SEGMENTS-1 do
+                    for x=0,X_SEGMENTS do
                         table.insert(indices,y*(X_SEGMENTS+1)+x)
                         table.insert(indices,(y+1)*(X_SEGMENTS+1)+x)
                     end
                 else
-                    for x=X_SEGMENTS-1,0 do
+                    for x=X_SEGMENTS,0,-1 do
                         table.insert(indices,(y+1)*(X_SEGMENTS+1)+x)
                         table.insert(indices,y*(X_SEGMENTS+1)+x)
                     end

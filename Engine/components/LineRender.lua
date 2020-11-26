@@ -2,7 +2,7 @@
 LineRender=class({
     ctor=function(self,data)
         self.material=Material:new({
-            shader="./Assets/shaders/debug",
+            shader=AssetManager:Load("./Assets/shaders/debug","shader"),
             uniform={
                 color={1,1,1,1}
             }

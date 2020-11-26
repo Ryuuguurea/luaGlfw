@@ -13,7 +13,7 @@ AssetManager=class({
             elseif self.cache[path]==nil and type=="texture2d"then
                 self.cache[path]=Texture2d:new(path)
             elseif self.cache[path]==nil and type=="material"then
-                self.cache[path]=Material:new(require(path))
+                self.cache[path]=Material:Load(path)
             elseif self.cache[path]==nil and type=="shader"then
                 self.cache[path]=Shader:new(require(path))
             end
