@@ -3,27 +3,22 @@ Material=class({
         self.data=data
         self.shader=data.shader
         self.uniform={}
+        self:UseShader()
+        local textureIndex=0
         for i,v in pairs(data.uniform)do
             if type(v)=="string" then
-                self.uniform[i]={
-                    type="texture",
-                    value=AssetManager:Load(v,"texture2d")
-                }
+                local tex=AssetManager:Load(v,"texture2d")
+                GL.ActiveTexture(GL.TEXTURE0+textureIndex)
+                self:SetInt(i,textureIndex)
+                GL.BindTexture(GL.TEXTURE_2D,tex.id)
+                GL.ActiveTexture(GL.TEXTURE0)
+                textureIndex=textureIndex+1
             elseif type(v)=="table" and #v==4 then
-                self.uniform[i]={
-                    type="vector4",
-                    value=v
-                }
+                self:SetVector4(i,v)
             elseif type(v)=="table" and #v==3 then
-                self.uniform[i]={
-                    type="vector3",
-                    value=v
-                }
+                self:SetVector3(i,v)
             elseif type(v)=="number" then
-                self.uniform[i]={
-                    type="float",
-                    value=v
-                }
+                self:SetFloat(i,v)
             end
         end
         self.wireFrame=data.wireFrame
@@ -55,7 +50,7 @@ Material=class({
     static={
         Load=function(self,path)
             local data=require(path)
-            local shader=AssetManager:Load(data.shader,"shader")
+            local shader=Shader:new(require(data.shader))
             return Material:new({
                 uniform=data.uniform,
                 shader=shader,

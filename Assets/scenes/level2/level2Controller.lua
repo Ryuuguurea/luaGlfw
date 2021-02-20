@@ -8,110 +8,37 @@ level2Controller=class({
                 self:Init()
             end
             for i,v in pairs(self.light)do
-                v.transform.position=v.transform.position+Vector3:new(math.sin(Time.time)*5*5,0,0)
+                v.transform.position=self.ligthPositions[i]+Vector3:new(math.sin(Time.time)*5*5,0,0)
             end
         end,
         Init=function(self)
             self.isInit=true
-            self.cube=SceneManager:GetActor(self.data.cube)
+
             self.light={}
+            self.ligthPositions={}
             for i,v in pairs(self.data.light)do
-                table.insert(self.light,SceneManager:GetActor(v))
+                local light=SceneManager:GetActor(v)
+                table.insert(self.light,light)
+                table.insert(self.ligthPositions,light.transform.position)
             end
-            local meshData=self:sphereMesh(6,8)
-            local m=Mesh:new(meshData)
-            local a=Actor:new()
-            a:AddComponent(Transform)
-            local render=a:AddComponent(Renderer,
-            {
-                material="./Assets/materials/pbrcolor",
-                mesh=m
-            })
-        end,
-        sphereMesh=function(self,X_SEGMENTS,Y_SEGMENTS)
-            local PI = 3.14159265359;
-            local positions={}
-            local uv={}
-            local normals={}
-            local indices={}
-            for y=0,Y_SEGMENTS do
-                for x=0,X_SEGMENTS do
-                    local xSegment=x/X_SEGMENTS
-                    local ySegment=y/Y_SEGMENTS
-                    local xPos=math.cos(xSegment*2*PI)*math.sin(ySegment*PI)
-                    local yPos=math.cos(ySegment*PI)
-                    local zPos=math.sin(xSegment*2*PI)*math.sin(ySegment*PI)
-                    table.insert(positions,{xPos,yPos,zPos})
-                    table.insert(uv,{xSegment,ySegment})
-                    table.insert(normals,{xPos,yPos,zPos})
+            for row=0,7 do
+                for col=0,7 do
+                    local m=Mesh:Load("./Assets/meshs/Icosphere")
+                    local a=Actor:new()
+                    local t=a:AddComponent(Transform)
+                    t.position=Vector3:new((col-7/2)*3.5,(row-7/2)*3.5,0)
+                    local render=a:AddComponent(Renderer,
+                    {
+                        material=Material:Load("./Assets/materials/pbrcolor"),
+                        mesh=m
+                    })
+                    render.material:UseShader()
+                    render.material:SetFloat("metallic",row/7)
+                    render.material:SetFloat("roughness",col/7)
+                    
                 end
             end
-            local oddRow=false
-            for y=0,Y_SEGMENTS-1 do
-                if not oddRow then
-                    for x=0,X_SEGMENTS do
-                        table.insert(indices,y*(X_SEGMENTS+1)+x)
-                        table.insert(indices,(y+1)*(X_SEGMENTS+1)+x)
-                    end
-                else
-                    for x=X_SEGMENTS,0,-1 do
-                        table.insert(indices,(y+1)*(X_SEGMENTS+1)+x)
-                        table.insert(indices,y*(X_SEGMENTS+1)+x)
-                    end
-                end
-                oddRow=not oddRow
-            end
-            local data={}
 
-            for i,v in pairs(positions) do
-                table.insert(data,v[1])
-                table.insert(data,v[2])
-                table.insert(data,v[3])
-            end
-            for i,v in pairs(normals) do
-                table.insert(data,v[1])
-                table.insert(data,v[2])
-                table.insert(data,v[3])
-            end
-
-            for i,v in pairs(uv) do
-                table.insert(data,v[1])
-                table.insert(data,v[2])
-            end
-            print(#indices)
-            print(#positions)
-            return {
-                indices={
-                    componentType= 5123,
-                    type= "SCALAR",
-                    offset= #positions*3*4+#normals*3*4+#uv*2*4,
-                    length= #indices*2
-                },
-                attributes={
-                    {
-                        componentType= 5126,
-                        name= "POSITION",
-                        type= "VEC3",
-                        offset= 0,
-                        length= #positions*3*4
-                    },
-                    {
-                        componentType= 5126,
-                        name= "NORMAL",
-                        type= "VEC3",
-                        offset= #positions*3*4,
-                        length= #normals*3*4
-                    },
-                    {
-                        componentType= 5126,
-                        name= "TEXCOORD_0",
-                        type= "VEC2",
-                        offset= #positions*3*4+#normals*3*4,
-                        length= #uv*2*4
-                    }
-                },
-                buffer=BinaryData.Join({BinaryData.FromFloat32(data),BinaryData.FromUint16(indices)})
-            }
         end
     },
     extend=Component

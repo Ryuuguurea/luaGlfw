@@ -39,22 +39,22 @@ GeometryPass=class({
                     render.material:SetVector3("lightColors["..i-1 .."]",light.color)
                 end
             end
-            local textureIndex=0
-            for k,uniform in pairs(render.material.uniform)do
-                if uniform.type=="vector4"then
-                    render.material:SetVector4(k,uniform.value)
-                elseif uniform.type=="vector3"then
-                    render.material:SetVector3(k,uniform.value)
-                elseif uniform.type=="float"then
-                    render.material:SetFloat(k,uniform.value)
-                elseif uniform.type=="texture"then
-                    GL.ActiveTexture(GL.TEXTURE0+textureIndex)
-                    render.material:SetInt(k,textureIndex)
-                    GL.BindTexture(GL.TEXTURE_2D,uniform.value.id)
-                    GL.ActiveTexture(GL.TEXTURE0)
-                    textureIndex=textureIndex+1
-                end
-            end
+            -- local textureIndex=0
+            -- for k,uniform in pairs(render.material.uniform)do
+            --     if uniform.type=="vector4"then
+            --         render.material:SetVector4(k,uniform.value)
+            --     elseif uniform.type=="vector3"then
+            --         render.material:SetVector3(k,uniform.value)
+            --     elseif uniform.type=="float"then
+            --         render.material:SetFloat(k,uniform.value)
+            --     elseif uniform.type=="texture"then
+            --         GL.ActiveTexture(GL.TEXTURE0+textureIndex)
+            --         render.material:SetInt(k,textureIndex)
+            --         GL.BindTexture(GL.TEXTURE_2D,uniform.value.id)
+            --         GL.ActiveTexture(GL.TEXTURE0)
+            --         textureIndex=textureIndex+1
+            --     end
+            -- end
             if render.material.shader.cull then
                 GL.Enable(GL.CULL_FACE)
             else

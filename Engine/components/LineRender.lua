@@ -14,12 +14,14 @@ LineRender=class({
                      table.insert(self.vertices,m)
                 end 
             end
-            self.material.uniform.color.value=data.color
         end
+        self.color=data.color
         self:Setup()
     end,
     property={
         Draw=function(self)
+            self.material:UseShader()
+            self.material:SetVector4("color",self.color)
             GL.BindVertexArray(self.VAO)
             GL.DrawArrays(GL.LINES,#self.vertices)
             GL.BindVertexArray(0)

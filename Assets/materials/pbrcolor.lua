@@ -7,5 +7,5 @@ return
         roughness=1,
         ao=1
     },
-    wireFrame=true
+    wireFrame=false
 }

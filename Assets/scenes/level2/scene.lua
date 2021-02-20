@@ -11,7 +11,6 @@ return{
                 scale={1,1,1},
             },
             level2Controller={
-                cube=9,
                 light={5,6,7,8}
             }
         }

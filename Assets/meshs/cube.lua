@@ -28,6 +28,5 @@ return{
         type= "SCALAR",
         offset= 768,
         length= 72,
-
     }
 }
