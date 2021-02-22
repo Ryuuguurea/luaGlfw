@@ -1,0 +1,35 @@
+#ifndef FONT_H
+#define FONT_H
+
+#include<lua/lua.hpp>
+#include<LuaBridge/LuaBridge.h>
+#include<LuaBridge/RefCountedObject.h>
+#include<LuaBridge/RefCountedPtr.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
+using namespace std;
+using namespace luabridge;
+struct FontChar:RefCountedObject{
+    uint textureID;
+    size_t width;
+    size_t rows;
+    size_t left;
+    size_t top;
+    size_t advance;
+    ~FontChar();
+    FontChar()=default;
+    FontChar(const FontChar&)=delete;
+    FontChar &operator=(const FontChar&)=delete;
+};
+struct Font:RefCountedObject{
+    FT_Face face;
+    string path;
+    ~Font();
+    Font()=default;
+    Font(const Font&)=delete;
+    Font &operator=(const Font&)=delete;
+    RefCountedObjectPtr<FontChar> LoadChar(string);
+};
+
+void font_bind(lua_State *L);
+#endif

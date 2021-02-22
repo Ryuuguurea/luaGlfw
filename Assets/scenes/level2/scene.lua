@@ -91,6 +91,10 @@ return{
             },
             Light={
                 color={300,300,300,1}
+            },
+            TextRenderer={
+                text="abcd",
+                pos={25,25}
             }
         }
     }

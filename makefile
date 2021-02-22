@@ -25,7 +25,7 @@ ifeq ($(OS),Windows_NT)
 platform:LDFLAGS+= -lgdi32 -lopengl32
 else
 ifeq ($(shell uname),Darwin)
-platform:LDFLAGS+= -lglfw -llua
+platform:LDFLAGS+= -lglfw -llua -lfreetype
 endif
 endif
 platform:$(SRC) njoy
