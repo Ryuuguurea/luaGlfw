@@ -20,8 +20,8 @@ LineRender=class({
     end,
     property={
         Draw=function(self)
-            self.material:UseShader()
-            self.material:SetVector4("color",self.color)
+            self.material.shader:UseShader()
+            self.material.shader:SetVector4("color",self.color)
             GL.BindVertexArray(self.VAO)
             GL.DrawArrays(GL.LINES,#self.vertices)
             GL.BindVertexArray(0)

@@ -28,33 +28,18 @@ GeometryPass=class({
         DrawGeometry=function(self,camera,render,frame)
             local viewMat4=camera.viewMat4
             local projectionMat4=camera.projectionMat4
-            render.material:UseShader()
-            render.material:SetMat4("model",render.actor.transform.modelMat4)
-            render.material:SetMat4("view",viewMat4)
-            render.material:SetMat4("projection",projectionMat4)
+            render.material.shader:UseShader()
+            render.material.shader:SetMat4("model",render.actor.transform.modelMat4)
+            render.material.shader:SetMat4("view",viewMat4)
+            render.material.shader:SetMat4("projection",projectionMat4)
             if render.material.shader.light then
-                render.material:SetVector3("camPos",camera.actor.transform.position)
+                render.material.shader:SetVector3("camPos",camera.actor.transform.position)
                 for i,light in pairs(frame.light)do
-                    render.material:SetVector3("lightPositions["..i-1 .."]",light.actor.transform.position)
-                    render.material:SetVector3("lightColors["..i-1 .."]",light.color)
+                    render.material.shader:SetVector3("lightPositions["..i-1 .."]",light.actor.transform.position)
+                    render.material.shader:SetVector3("lightColors["..i-1 .."]",light.color)
                 end
             end
-            -- local textureIndex=0
-            -- for k,uniform in pairs(render.material.uniform)do
-            --     if uniform.type=="vector4"then
-            --         render.material:SetVector4(k,uniform.value)
-            --     elseif uniform.type=="vector3"then
-            --         render.material:SetVector3(k,uniform.value)
-            --     elseif uniform.type=="float"then
-            --         render.material:SetFloat(k,uniform.value)
-            --     elseif uniform.type=="texture"then
-            --         GL.ActiveTexture(GL.TEXTURE0+textureIndex)
-            --         render.material:SetInt(k,textureIndex)
-            --         GL.BindTexture(GL.TEXTURE_2D,uniform.value.id)
-            --         GL.ActiveTexture(GL.TEXTURE0)
-            --         textureIndex=textureIndex+1
-            --     end
-            -- end
+            render.material:UpdateTexture()
             if render.material.shader.cull then
                 GL.Enable(GL.CULL_FACE)
             else

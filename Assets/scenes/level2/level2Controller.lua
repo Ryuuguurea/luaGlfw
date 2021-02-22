@@ -32,9 +32,8 @@ level2Controller=class({
                         material=Material:Load("./Assets/materials/pbrcolor"),
                         mesh=m
                     })
-                    render.material:UseShader()
-                    render.material:SetFloat("metallic",row/7)
-                    render.material:SetFloat("roughness",col/7)
+                    render.material:SetUniform("metallic",row/7)
+                    render.material:SetUniform("roughness",col/7)
                     
                 end
             end
