@@ -140,16 +140,6 @@ BindBuffer(int target,unsigned int buffer)
     glBindBuffer(target, buffer);
 }
 static void
-BufferDataf(int target,const std::vector<float>& data,int usage)
-{
-    glBufferData(target, sizeof(float)*data.size(), &data[0], usage);
-}
-static void
-BufferDatai(int target,const std::vector<int>& data,int usage)
-{
-    glBufferData(target, sizeof(int)*data.size(), &data[0], usage);
-}
-static void
 BufferData(int target,const luabridge::RefCountedObjectPtr<BinaryData>&data,int offset,int length,int usage){
     glBufferData(target, length, &(data->data[offset]), usage);
 }
@@ -161,8 +151,7 @@ EnableVertexAttribArray(int index)
 static void
 VertexAttribPointer(int index,int size)
 {
-
-    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, 0, (void *)0);
+    glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, size*sizeof(GLfloat), (void *)0);
 }
 static int
 GenTextures(void)
@@ -246,6 +235,7 @@ int LINK_STATUS=GL_LINK_STATUS;
 int ARRAY_BUFFER=GL_ARRAY_BUFFER;
 int ELEMENT_ARRAY_BUFFER=GL_ELEMENT_ARRAY_BUFFER;
 int STATIC_DRAW=GL_STATIC_DRAW;
+int DYNAMIC_DRAW=GL_DYNAMIC_DRAW;
 int COLOR_BUFFER_BIT=GL_COLOR_BUFFER_BIT;
 int DEPTH_BUFFER_BIT=GL_DEPTH_BUFFER_BIT;
 int TEXTURE_2D=GL_TEXTURE_2D;
@@ -291,8 +281,6 @@ void Binding_GL(lua_State *L)
     .addFunction("BindVertexArray",BindVertexArray)
     .addFunction("BindBuffer",BindBuffer)
     .addFunction("BufferData",BufferData)
-    .addFunction("BufferDatai",BufferDatai)
-    .addFunction("BufferDataf",BufferDataf)
     .addFunction("EnableVertexAttribArray",EnableVertexAttribArray)
     .addFunction("VertexAttribPointer",VertexAttribPointer)
     .addFunction("ActiveTexture",ActiveTexture)
@@ -320,6 +308,7 @@ void Binding_GL(lua_State *L)
     .addVariable("ARRAY_BUFFER",&ARRAY_BUFFER,false)
     .addVariable("ELEMENT_ARRAY_BUFFER",&ELEMENT_ARRAY_BUFFER,false)
     .addVariable("STATIC_DRAW",&STATIC_DRAW,false)
+    .addVariable("DYNAMIC_DRAW",&DYNAMIC_DRAW,false)
     .addVariable("COLOR_BUFFER_BIT",&COLOR_BUFFER_BIT,false)
     .addVariable("DEPTH_BUFFER_BIT",&DEPTH_BUFFER_BIT,false)
     .addVariable("TEXTURE_2D",&TEXTURE_2D,false)

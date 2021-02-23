@@ -41,7 +41,6 @@ BinaryData::BinaryData(int length):length(length){
 }
 BinaryData::~BinaryData(){
     delete data;
-    cout<<"data free"<<endl;
 }
 luabridge::RefCountedObjectPtr<BinaryData> BinaryData::Slice(size_t start,size_t end){
     luabridge::RefCountedObjectPtr<BinaryData> object;

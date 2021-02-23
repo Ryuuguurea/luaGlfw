@@ -3,9 +3,11 @@ GraphicManager=class({
         Initialize=function(self)
             self.pass={}
             self.frame={}
-            self.aspect=6/4
+            self.width=600
+            self.height=400
             table.insert(self.pass,GeometryPass:new())
             table.insert(self.pass,DebugPass:new())
+            table.insert(self.pass,UIPass:new())
         end,
         Tick=function(self,delta)
             self:BeginFrame()
@@ -32,7 +34,8 @@ GraphicManager=class({
                 geometry={},
                 camera={},
                 debug={},
-                light={}
+                light={},
+                UI={}
             }
             for i,v in pairs(SceneManager.nodes)do
                 for j,component in pairs(v.components)do
@@ -48,14 +51,19 @@ GraphicManager=class({
                     if component.type==Light then
                         table.insert(self.frame.light,component)
                     end
+                    if component.type==TextRenderer then
+                        table.insert(self.frame.UI,component)
+                    end
                 end
             end
             print("RebuildFrame")
         end,
         Resize=function(self,w,h)
-            self.aspect=w/h
+            self.width=w
+            self.height=h
+            local aspect=w/h
             for i,camera in pairs(self.frame.camera)do
-                camera.aspect=self.aspect
+                camera.aspect=aspect
             end
         end
     }

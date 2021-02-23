@@ -10,11 +10,11 @@
 using namespace std;
 using namespace luabridge;
 struct FontChar:RefCountedObject{
-    uint textureID;
-    size_t width;
-    size_t rows;
-    size_t left;
-    size_t top;
+    unsigned int textureID;
+    size_t sizeX;
+    size_t sizeY;
+    size_t bearX;
+    size_t bearY;
     size_t advance;
     ~FontChar();
     FontChar()=default;

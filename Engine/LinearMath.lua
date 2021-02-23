@@ -104,6 +104,21 @@ Mat4x4=class({
         
             })
         end,
+        Orthographic=function(left, right, top, bottom, near, far)
+            local w = 1.0 / ( right - left )
+            local h = 1.0 / ( top - bottom )
+            local p = 1.0 / ( far - near )
+    
+            local x = ( right + left ) * w
+            local y = ( top + bottom ) * h
+            local z = ( far + near ) * p
+            return Mat4x4:new({
+                2*w,	0, 0, -x,
+                0,	2*h, 0, -y,
+                0,	0, -2*p, -z,
+                0,	0, 0, 1,
+           })
+        end,
         identity={
             get=function(self)
                 return Mat4x4:new({

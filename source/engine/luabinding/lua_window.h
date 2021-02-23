@@ -2,7 +2,7 @@
 #define LUA_WINDOW_H
 
 
-#include<glfw/glfw3.h>
+#include<GLFW/glfw3.h>
 #include<lua/lua.hpp>
 #include<LuaBridge/LuaBridge.h>
 #include<vector>
