@@ -4,7 +4,7 @@ TextRenderer=class({
         self.material=Material:new({
             shader=AssetManager:Load("./Assets/shaders/text","shader"),
             uniform={
-                textColor={1,1,1,1}
+                color={1,1,1,1}
             }
         })
         if data~=nil then
@@ -22,8 +22,7 @@ TextRenderer=class({
     end,
     property={
         Draw=function(self)
-            self.material.shader:UseShader()
-            self.material.shader:SetVector4("textColor",self.color)
+            self.material:SetUniform("color",self.color)
             GL.ActiveTexture(GL.TEXTURE0)
             for i,ch in pairs(self.chs) do
                 GL.BindTexture(GL.TEXTURE_2D,ch.textureID)
@@ -61,7 +60,7 @@ TextRenderer=class({
                     VBO=VBO,
                     textureID=ch.textureID
                 })
-                x+=ch.advance>>6
+                x=x+ch.advance>>6
             end
         end
     },
