@@ -8,6 +8,12 @@ return {
                 position={0,0,0},
                 rotation={0,0,0,0},
                 scale={1,1,1},
+            },
+            TextRenderer={
+                text="This is a sample",
+                x=25,
+                y=25,
+                color={0.5,0.8,0.2,1}
             }
         }
     },

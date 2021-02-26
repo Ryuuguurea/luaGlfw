@@ -1,7 +1,12 @@
 UIPass=class({
     ctor=function(self)
         self.projection=Mat4x4.Orthographic(0,GraphicManager.width,0,GraphicManager.height,0.1,1000)
-        print_t(self.projection)
+        -- self.projection.data={
+        --     0.0024,0,0,0,
+        --     0,0.0033,0,0,
+        --     0,0,-1,0,
+        --     -1,-1,0,1
+        -- }
     end,
     property={
         Draw=function(self,frame)

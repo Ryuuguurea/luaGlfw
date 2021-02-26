@@ -60,7 +60,7 @@ TextRenderer=class({
                     VBO=VBO,
                     textureID=ch.textureID
                 })
-                x=x+ch.advance>>6
+                x=x+(ch.advance>>6)
             end
         end
     },

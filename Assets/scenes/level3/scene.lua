@@ -29,7 +29,7 @@ return{
 
             },
             TextRenderer={
-                text="abcd",
+                text="This is a Sample",
                 x=25,
                 y=25,
                 color={0.5,0.8,0.2,1}

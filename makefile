@@ -5,6 +5,7 @@ source/include/glad/glad.c
 ifeq ($(OS),Windows_NT)
 GLFWSRC+=build/win32/glfw3.dll
 GLFWSRC+=build/win32/lua53.dll
+GLFWSRC+=build/win32/libfreetype.dll
 endif
 
 ENGINESRC:= \

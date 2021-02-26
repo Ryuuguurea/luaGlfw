@@ -4,10 +4,15 @@
 #include <iostream>
 using namespace std;
 using namespace luabridge;
-
+#ifdef WIN32
+#define FONT_PATH "C:/Windows/Fonts/Arial.ttf"
+#else
+#define FONT_PATH "/Library/Fonts/Arial Unicode.ttf"
+#endif
 RefCountedObjectPtr<FontChar> Font::LoadChar(string c){
     RefCountedObjectPtr<FontChar> object;
     if(!FT_Load_Char(face,c[0],FT_LOAD_RENDER)){
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
         object=new FontChar();
         glGenTextures(1,&object->textureID);
         glBindTexture(GL_TEXTURE_2D,object->textureID);
@@ -38,7 +43,7 @@ FT_Library ft;
 RefCountedObjectPtr<Font> LoadFont(string path){
     RefCountedObjectPtr<Font> object;
     FT_Face face;
-    if (!FT_New_Face(ft, "/Library/Fonts/Arial Unicode.ttf", 0, &face)){
+    if (!FT_New_Face(ft, FONT_PATH, 0, &face)){
         FT_Set_Pixel_Sizes(face, 0, 48);
         object=new Font();
         object->face=face;
