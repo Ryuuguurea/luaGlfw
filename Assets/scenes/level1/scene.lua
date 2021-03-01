@@ -10,7 +10,7 @@ return {
                 scale={1,1,1},
             },
             TextRenderer={
-                text="This is a sample",
+                text="哈",
                 x=25,
                 y=25,
                 color={0.5,0.8,0.2,1}
