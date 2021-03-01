@@ -61,7 +61,8 @@ Font::~Font(){
     cout<<"font free"<<path<<endl;
 }
 FontChar::~FontChar(){
-    cout<<"todo free fontchar";    
+    cout<<"free fontchar";
+    glDeleteTextures(1,&textureID);
 }
 
 void font_bind(lua_State *L){
