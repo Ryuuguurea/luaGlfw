@@ -11,7 +11,6 @@ struct ImageData:luabridge::RefCountedObject{
     int width;
     int height;
     int nrChannels;
-    std::string path;
     ~ImageData();
     ImageData()=default;
     ImageData(const ImageData&)=delete;
@@ -43,7 +42,7 @@ private:
 
 public:
     static void Bind(lua_State *L);
-    static luabridge::RefCountedObjectPtr<ImageData> LoadImage(std::string);
+    static luabridge::RefCountedObjectPtr<ImageData> LoadImage(luabridge::RefCountedObjectPtr<BinaryData>);
     static luabridge::RefCountedObjectPtr<BinaryData> LoadFile(std::string);
 };
 

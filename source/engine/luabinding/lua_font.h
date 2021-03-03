@@ -6,6 +6,7 @@
 #include<LuaBridge/RefCountedObject.h>
 #include<LuaBridge/RefCountedPtr.h>
 #include <ft2build.h>
+#include <vector>
 #include FT_FREETYPE_H
 using namespace std;
 using namespace luabridge;

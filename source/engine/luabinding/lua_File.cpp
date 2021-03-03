@@ -5,13 +5,13 @@
 #include <fstream>
 #include<iterator>
 using namespace std;
-luabridge::RefCountedObjectPtr<ImageData> Lua_File::LoadImage(string path){
+using namespace luabridge;
+RefCountedObjectPtr<ImageData> Lua_File::LoadImage(RefCountedObjectPtr<BinaryData> path){
     int width, height, nrChannels;
-    unsigned char *img=stbi_load(path.c_str(),&width, &height, &nrChannels, 0);
+    unsigned char *img=stbi_load_from_memory((unsigned char *)path->data,path->length,&width, &height, &nrChannels, 0);
     luabridge::RefCountedObjectPtr<ImageData> object;
     if(img){
-        object=new ImageData(); 
-        object->path=path;
+        object=new ImageData();
         object->width=width;
         object->height=height;
         object->nrChannels=nrChannels;
@@ -34,13 +34,14 @@ luabridge::RefCountedObjectPtr<BinaryData> Lua_File::LoadFile(string path){
 }
 ImageData::~ImageData(){
     if(data)stbi_image_free(data);
-    cout<<"image free:"<<path<<endl;
+    cout<<"image free"<<endl;
 }
 BinaryData::BinaryData(int length):length(length){
     data=new char[length];
 }
 BinaryData::~BinaryData(){
     delete data;
+    cout<<"image free"<<endl;
 }
 luabridge::RefCountedObjectPtr<BinaryData> BinaryData::Slice(size_t start,size_t end){
     luabridge::RefCountedObjectPtr<BinaryData> object;

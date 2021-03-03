@@ -10,8 +10,10 @@ TextRenderer=class({
         if data~=nil then
             local font=Font.LoadFont()
             self.fontChar={}
-            for i=1,#data.text do
-                local fc=font:LoadChar(string.sub(data.text,i,i))
+            print(#data.text)
+            local len=string.utf8Len(data.text)
+            for i=1,len do
+                local fc=font:LoadChar(string.utf8Index(data.text,i))
                 table.insert(self.fontChar,fc)
             end
             self.x=data.x
