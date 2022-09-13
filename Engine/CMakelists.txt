@@ -1,0 +1,10 @@
+project(Engine)
+
+add_subdirectory(ScriptRuntime)
+
+link_libraries(ScriptRuntime)
+add_executable(Engine
+ Win32/main.cpp)
+
+include_directories(Win32)
+include_directories(ScriptRuntime/src)

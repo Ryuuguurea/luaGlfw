@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.1.2 FATAL_ERROR)
+project(luaglfw VERSION 0.0.1)
+add_subdirectory(dep)
+add_subdirectory(Test)
+add_subdirectory(Engine)

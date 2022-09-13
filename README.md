@@ -1,15 +1,12 @@
 # luaGlfw
 
-使用g++（mac） mingw（windwos）编译
+使用cmake 构建
 
-第三方库：
-glfw 动态链接
-glad 源码
-lua 动态链接
-luabridge 源码
-stb_image 源码
-freetype 动态链接
+vscode安装cmaketool插件
+配置调试cwd为项目根目录
 
-运行： njoy.exe main.lua
+编译Engine
+
+运行： Engine.exe Scripts/Bootstrap.lua
 
 engine/game.lua中设置初始场景

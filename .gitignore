@@ -33,3 +33,6 @@
 *.vscode
 *.dSYM
 *.DS_STORE
+
+# cmake
+build

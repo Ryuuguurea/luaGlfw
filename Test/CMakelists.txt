@@ -1,0 +1,4 @@
+project(test)
+include_directories(../dep/lua/src)
+link_libraries(lua)
+add_executable(test main.cpp)

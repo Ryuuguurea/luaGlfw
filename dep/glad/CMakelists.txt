@@ -1,0 +1,4 @@
+project(glad)
+add_library(glad STATIC glad.c)
+
+include_directories(../glfw/include)

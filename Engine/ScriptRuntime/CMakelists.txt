@@ -1,0 +1,22 @@
+project(ScriptRuntime)
+
+link_libraries(lua)
+link_libraries(glad)
+link_libraries(LuaBridge)
+link_libraries(glfw)
+link_libraries(freetype)
+
+add_library(ScriptRuntime STATIC 
+    src/ScriptRuntime.cpp
+    src/lua_File.cpp
+    src/lua_font.cpp
+    src/lua_GL.cpp
+    src/lua_window.cpp
+)
+include_directories(src)
+include_directories(../../dep/lua/src)
+include_directories(../../dep/LuaBridge/Source)
+include_directories(../../dep)
+include_directories(../../dep/include)
+include_directories(../../dep/glfw/include)
+include_directories(../../dep/freetype/include)

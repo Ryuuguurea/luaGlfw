@@ -1,0 +1,6 @@
+set(GLFW_LIBRARY_TYPE "STATIC")
+add_subdirectory(freetype)
+add_subdirectory(glfw)
+add_subdirectory(lua)
+add_subdirectory(LuaBridge)
+add_subdirectory(glad)
