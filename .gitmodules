@@ -1,0 +1,9 @@
+[submodule "dep/LuaBridge"]
+	path = dep/LuaBridge
+	url = https://github.com/vinniefalco/LuaBridge.git
+[submodule "dep/glfw"]
+	path = dep/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "dep/freetype"]
+	path = dep/freetype
+	url = https://github.com/freetype/freetype.git
