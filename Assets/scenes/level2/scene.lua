@@ -7,7 +7,7 @@ return{
         {
             Transform={
                 position={0,0,0},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             },
             level2Controller={
@@ -26,7 +26,7 @@ return{
             },
             Transform={
                 position={0,0,10},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             },
             EditorCamera={

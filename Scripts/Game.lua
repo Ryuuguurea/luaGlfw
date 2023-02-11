@@ -1,10 +1,10 @@
 require"Engine"
 Game=class({
 	static={
-		Initialize=function(self)
+		Initialize=function(self,window)
 			AssetManager:Initialize()
-			GraphicManager:Initialize()
-			SceneManager:Initialize(require("./Assets/scenes/level1/scene"))
+			GraphicManager:Initialize(window[1],window[2])
+			SceneManager:Initialize(require("./Assets/scenes/level3/scene"))
 			DebugManager:Initialize()
 		end,
 		Tick=function(self,delta)

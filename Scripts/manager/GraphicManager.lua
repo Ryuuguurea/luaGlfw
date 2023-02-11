@@ -1,10 +1,10 @@
 GraphicManager=class({
     static={
-        Initialize=function(self)
+        Initialize=function(self,w,h)
             self.pass={}
             self.frame={}
-            self.width=600
-            self.height=400
+            self.width=w
+            self.height=h
             table.insert(self.pass,GeometryPass:new())
             table.insert(self.pass,DebugPass:new())
             table.insert(self.pass,UIPass:new())

@@ -8,22 +8,9 @@
 
 inline int traceback(lua_State* L)
 {
-    // look up Lua's 'debug.traceback' function
-    lua_getglobal(L, "debug");
-    if (!lua_istable(L, -1))
-    {
-        lua_pop(L, 1);
-        return 1;
-    }
-    lua_getfield(L, -1, "traceback");
-    if (!lua_isfunction(L, -1))
-    {
-        lua_pop(L, 2);
-        return 1;
-    }
-    lua_pushvalue(L, 1); /* pass error message */
-    lua_pushinteger(L, 2); /* skip this function and traceback */
-    lua_call(L, 2, 1); /* call debug.traceback */
+    std::cout<<lua_tostring(L,-1)<<std::endl;
+    luaL_traceback(L, L, NULL, 1);
+    std::cout<<lua_tostring(L, -1)<<std::endl;
     return 1;
 }
 ScriptRuntime::ScriptRuntime(const std::string& bootstrap)
@@ -37,7 +24,7 @@ ScriptRuntime::ScriptRuntime(const std::string& bootstrap)
     Binding_GL(L);
     font_bind(L);
     if(luaL_loadfile(L,bootstrap.c_str())!=0){
-        std::cout<<lua_tostring(L, -1);
+        std::cout<<"Invalid Bootstrap File"<<lua_tostring(L, -1)<<std::endl;
         system("pause");
     }
     if (lua_pcall(L, 0, 0, -2) != 0)

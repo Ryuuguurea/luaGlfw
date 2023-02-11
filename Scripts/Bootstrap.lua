@@ -1,8 +1,9 @@
 
 package.path=package.path ..";Scripts/?.lua"
-require"Scripts/Game"
 
-local window=Window("WINDOW",1280,720)
+require"Scripts/Game"
+local windowSize = {1280,720}
+local window=Window("WINDOW",windowSize[1],windowSize[2])
 
 window:SetFramebufferSizeCallback(function(w,h)
     GL.Viewport(0,0,w,h)
@@ -42,7 +43,7 @@ _G.print_t=function(root)
 end
 
 
-Game:Initialize()
+Game:Initialize(windowSize)
 mainLoop=function()
     Time:Update(window:GetTime())
     Game:Tick(Time.deltaTime)

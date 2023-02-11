@@ -6,7 +6,7 @@ return {
         {
             Transform={
                 position={0,0,0},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             },
             TextRenderer={
@@ -29,7 +29,7 @@ return {
             },
             Transform={
                 position={0,0,10},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             },
             EditorCamera={
@@ -49,7 +49,7 @@ return {
             },
             Transform={
                 position={0,0,0},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             }
         }
@@ -66,7 +66,7 @@ return {
             },
             Transform={
                 position={2,0,0},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             }
         }
@@ -83,7 +83,7 @@ return {
             },
             Transform={
                 position={0,-1,0},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={10,10,10},
             }
         }
@@ -160,7 +160,7 @@ return {
             },
             Transform={
                 position={-2,0,0},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             }
         }
@@ -177,7 +177,7 @@ return {
             },
             Transform={
                 position={-2,0,-2},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             }
         }
@@ -194,7 +194,7 @@ return {
             },
             Transform={
                 position={-2,0,2},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             }
         }
@@ -211,7 +211,7 @@ return {
             },
             Transform={
                 position={-4,0,0},
-                rotation={0,0,0,0},
+                rotation={0,0,0},
                 scale={1,1,1},
             }
         }
