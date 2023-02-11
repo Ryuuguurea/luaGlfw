@@ -2,7 +2,7 @@
 package.path=package.path ..";Scripts/?.lua"
 require"Scripts/Game"
 
-local window=Window("WINDOW",600,400)
+local window=Window("WINDOW",1280,720)
 
 window:SetFramebufferSizeCallback(function(w,h)
     GL.Viewport(0,0,w,h)

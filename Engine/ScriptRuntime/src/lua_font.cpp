@@ -6,17 +6,18 @@
 using namespace std;
 using namespace luabridge;
 #ifdef WIN32
-#define FONT_PATH "C:/Windows/Fonts/Arial.ttf"
+#define FONT_PATH "C:/Windows/Fonts/simsun.ttc"
 #else
 #define FONT_PATH "/Library/Fonts/Arial Unicode.ttf"
 #endif
-std::u32string to_utf32( std::string str )
+std::u32string to_utf32(const std::string& str )
 { 
     return std::wstring_convert< std::codecvt_utf8<char32_t>, char32_t >{}.from_bytes(str); 
 }
-RefCountedObjectPtr<FontChar> Font::LoadChar(string c){
+RefCountedObjectPtr<FontChar> Font::LoadChar(const string& c,size_t size){
     RefCountedObjectPtr<FontChar> object;
     u32string str32 = to_utf32(c);
+    FT_Set_Pixel_Sizes(face,size,size);
     if(!FT_Load_Char(face,str32[0],FT_LOAD_RENDER)){
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1); 
         object=new FontChar();
@@ -46,7 +47,7 @@ RefCountedObjectPtr<FontChar> Font::LoadChar(string c){
     return object;
 }
 FT_Library ft;
-RefCountedObjectPtr<Font> LoadFont(string path){
+RefCountedObjectPtr<Font> LoadFont(const string& path){
     RefCountedObjectPtr<Font> object;
     FT_Face face;
     if (!FT_New_Face(ft, FONT_PATH, 0, &face)){

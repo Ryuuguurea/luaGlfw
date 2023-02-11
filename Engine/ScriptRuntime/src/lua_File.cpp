@@ -19,12 +19,12 @@ RefCountedObjectPtr<ImageData> Lua_File::LoadImage(RefCountedObjectPtr<BinaryDat
     }
     return object;
 }
-luabridge::RefCountedObjectPtr<BinaryData> Lua_File::LoadFile(string path){
+luabridge::RefCountedObjectPtr<BinaryData> Lua_File::LoadFile(const string& path){
     luabridge::RefCountedObjectPtr<BinaryData> object;
     ifstream in(path,ios::binary);
     if(in){ 
         in.seekg(0,ios::end);
-        int length=in.tellg();
+        int length=(int)in.tellg();
         object=new BinaryData(length);
         in.seekg(0,ios::beg);
         in.read(object->data,length);
@@ -67,7 +67,7 @@ luabridge::RefCountedObjectPtr<BinaryData> BinaryData::Join(std::vector<luabridg
     }
     return object;
 }
-luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint8(vector<unsigned char> value){
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint8(const vector<unsigned char>& value){
     luabridge::RefCountedObjectPtr<BinaryData> object;
     size_t length=value.size();
     object=new BinaryData(length);
@@ -76,14 +76,14 @@ luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint8(vector<unsigned
     }
     return object;
 }
-std::vector<unsigned char> BinaryData::GetUint8(){
+std::vector<unsigned char> BinaryData::GetUint8()const{
     std::vector<unsigned char> result;
     for(size_t i=0;i<length;i++){
         result.push_back(data[i]);
     }
     return result;
 }
-luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromFloat32(std::vector<float> value){
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromFloat32(const std::vector<float>& value){
    luabridge::RefCountedObjectPtr<BinaryData> object;
     size_t length=value.size();
     object=new BinaryData(length*4);
@@ -93,7 +93,7 @@ luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromFloat32(std::vector<f
     }
     return object;
 }
-std::vector<float> BinaryData::GetFloat32(){
+std::vector<float> BinaryData::GetFloat32()const{
     std::vector<float> result;
     for(size_t i=0;i<length;i=i+4){
         float *ptr=(float*)&data[i];
@@ -101,7 +101,7 @@ std::vector<float> BinaryData::GetFloat32(){
     }
     return result;
 }
-luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromInt32(std::vector<int> value){
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromInt32(const std::vector<int>& value){
    luabridge::RefCountedObjectPtr<BinaryData> object;
     size_t length=value.size();
     object=new BinaryData(length*4);
@@ -111,7 +111,7 @@ luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromInt32(std::vector<int
     }
     return object;
 }
-std::vector<int> BinaryData::GetInt32(){
+std::vector<int> BinaryData::GetInt32()const{
     std::vector<int> result;
     for(size_t i=0;i<length;i=i+4){
         int *ptr=(int*)&data[i];
@@ -119,7 +119,7 @@ std::vector<int> BinaryData::GetInt32(){
     }
     return result;
 }
-luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint16(std::vector<uint16_t> value){
+luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint16(const std::vector<uint16_t>& value){
    luabridge::RefCountedObjectPtr<BinaryData> object;
     size_t length=value.size();
     object=new BinaryData(length*4);
@@ -129,7 +129,7 @@ luabridge::RefCountedObjectPtr<BinaryData> BinaryData::FromUint16(std::vector<ui
     }
     return object;
 }
-std::vector<uint16_t> BinaryData::GetUint16(){
+std::vector<uint16_t> BinaryData::GetUint16()const{
     std::vector<uint16_t> result;
     for(size_t i=0;i<length;i=i+4){
         uint16_t *ptr=(uint16_t*)&data[i];

@@ -13,7 +13,7 @@ TextRenderer=class({
             print(#data.text)
             local len=string.utf8Len(data.text)
             for i=1,len do
-                local fc=font:LoadChar(string.utf8Index(data.text,i))
+                local fc=font:LoadChar(string.utf8Index(data.text,i),data.size)
                 table.insert(self.fontChar,fc)
             end
             self.x=data.x

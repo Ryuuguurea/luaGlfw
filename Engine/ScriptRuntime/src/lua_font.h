@@ -29,7 +29,7 @@ struct Font:RefCountedObject{
     Font()=default;
     Font(const Font&)=delete;
     Font &operator=(const Font&)=delete;
-    RefCountedObjectPtr<FontChar> LoadChar(string);
+    RefCountedObjectPtr<FontChar> LoadChar(const string&,size_t);
 };
 
 void font_bind(lua_State *L);

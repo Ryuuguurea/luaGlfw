@@ -10,10 +10,11 @@ return {
                 scale={1,1,1},
             },
             TextRenderer={
-                text="哈",
+                text="哈123",
                 x=25,
                 y=25,
-                color={0.5,0.8,0.2,1}
+                color={0.5,0.8,0.2,1},
+                size=48
             }
         }
     },
